@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-
+const serverUri  = "/api/";
 export class Home extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
         super(props);
@@ -11,15 +11,14 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
         console.log(dataFromForm);
 
         var request = new XMLHttpRequest();
-        request.open('POST', '/api/user/register', true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
         var login = dataFromForm.login.value;
         var password = dataFromForm.password.value;
         var email = dataFromForm.email.value;
 
-
+        request.open('POST', serverUri +'user/register', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         dataFromForm.reset();
+
         request.onload = () => {
             alert(request.responseText);
         }
@@ -36,16 +35,11 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
                     <hr />
                     <label><b>Login</b></label>
                     <input type="text" placeholder="Enter Login" id="login" name="login" required />
-
                     <label><b>Email</b></label>
                     <input type="text" placeholder="Enter Email" id="email" name="email" required />
-
                     <label><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" id="password" name="psw" required />
-
                     <hr />
-
-
                     <button type="button" onClick={this.userRegister} className="btn btn-default" >Submit</button>
                 </div>
 
