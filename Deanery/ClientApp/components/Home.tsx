@@ -1,29 +1,77 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+const serverUri  = "/api/";
+export class Home extends React.Component<RouteComponentProps<{}>, User> {
+    constructor(props: any) {
+        super(props);
+    }
+    userRegister(z: any) {
+        var formData;
+        formData = z.target.parentElement.parentElement;
+        //console.log(formData);
 
-export class Home extends React.Component<RouteComponentProps<{}>, {}> {
+        var request = new XMLHttpRequest();
+        var firstname = formData.firstname.value;
+        var surname = formData.surname.value;
+        var lastname = formData.lastname.value;
+        var password = formData.password.value;
+        var email = formData.email.value;
+        var phone = formData.phone.value;
+
+        request.open('POST', serverUri +'user/register', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        formData.reset();
+
+        request.onload = () => {
+            alert(request.responseText);
+        }
+
+        request.send(JSON.stringify({
+            "Firstname": firstname,
+            "Password": password,
+            "Email": email,
+            "Phone": phone,
+            "Lastname": lastname,
+            "Surname": surname
+        }));
+    }
+
     public render() {
         return <div>
-            <h1>Hello, world!</h1>
-            <p>Welcome to your new single-page application, built with:</p>
-            <ul>
-                <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-                <li><a href='https://facebook.github.io/react/'>React</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
-                <li><a href='https://webpack.github.io/'>Webpack</a> for building and bundling client-side resources</li>
-                <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-            </ul>
-            <p>To help you get started, we've also set up:</p>
-            <ul>
-                <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-                <li><strong>Webpack dev middleware</strong>. In development mode, there's no need to run the <code>webpack</code> build tool. Your client-side resources are dynamically built on demand. Updates are available as soon as you modify any file.</li>
-                <li><strong>Hot module replacement</strong>. In development mode, you don't even need to reload the page after making most changes. Within seconds of saving changes to files, rebuilt React components will be injected directly into your running application, preserving its live state.</li>
-                <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and the <code>webpack</code> build tool produces minified static CSS and JavaScript files.</li>
-            </ul>
-            <h4>Going further</h4>
-            <p>
-                For larger applications, or for server-side prerendering (i.e., for <em>isomorphic</em> or <em>universal</em> applications), you should consider using a Flux/Redux-like architecture.
-                You can generate an ASP.NET Core application with React and Redux using <code>dotnet new reactredux</code> instead of using this template.
-            </p>
+            <form>
+                <div className="container">
+                    <h1>Register</h1>
+                    <p>Please fill in this form to create an account.</p>
+                    <hr />
+                    <label><b>Firstname</b></label>
+                    <input type="text" placeholder="Enter name" id="firstname" name="firstname" required />
+                    <label><b>Lastname</b></label>
+                    <input type="text" placeholder="Enter lastname" id="lastname" name="lastname" required />
+                    <label><b>Surname</b></label>
+                    <input type="text" placeholder="Enter surname" id="surname" name="surname" required />
+                    <label><b>Email</b></label>
+                    <input type="text" placeholder="Enter email" id="email" name="email" required />
+                    <label><b>Phone</b></label>
+                    <input type="text" placeholder="Enter phone number" id="phone" name="phone" required />
+                    <label><b>Password</b></label>
+                    <input type="password" placeholder="Enter password" id="password" name="psw" required />
+                    <hr />
+                    <button type="button" onClick={this.userRegister} className="btn btn-default" >Submit</button>
+                </div>
+
+                <div className="container signin">
+                    <p>Already have an account? <a href="#">Sign in</a>.</p>
+                </div>
+            </form>
         </div>;
     }
 }
+
+
+
+interface User {
+    Login: string;
+    Password: number;
+    email: string;
+}
+
