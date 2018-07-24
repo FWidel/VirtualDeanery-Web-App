@@ -7,17 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Deanery.Controllers
 {
-    public class StudentController : Controller
+    public class StudentData : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
-        public IActionResult Index()
-        {
-            var customer = db.Student.FirstOrDefault();
-            return View(customer);
-        }
-      
-
-        [Route("api/registration")]
+       
+        [Route("api/user/register")]
         [HttpPost]
         public IActionResult AddStudentData([FromBody]Student student)
         {
@@ -36,7 +30,7 @@ namespace Deanery.Controllers
             };
             db.Student.Add(newStudent);
             db.SaveChanges();
-            return View();
+            return Ok("Successfully add into database");
 
         }
 
