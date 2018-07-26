@@ -15,7 +15,7 @@ namespace Deanery.Controllers
         [HttpPost]
         public IActionResult AddStudentData([FromBody]Student student)
         {
-            var customer = db.Student.FirstOrDefault();
+            
             Student newStudent = new Student()
             {
                 Firstname = student.Firstname,

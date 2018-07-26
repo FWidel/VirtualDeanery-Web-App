@@ -12,21 +12,7 @@ namespace Deanery.Controllers
     {
         public IActionResult Index()
         {
-            DbDeaneryContext db = new DbDeaneryContext();
-        Student newStudent = new Student()
-            {
-                Firstname = "Arek",
-                Lastname = "Jakis",
-                Surname = "Pichurski",
-                Pesel = "12345678901",
-                Phone = "1123",
-                Email = "sss@o2.pl",
-                Password = "haslo"
-
-
-            };
-            db.Student.Add(newStudent);
-            db.SaveChanges();
+            
             return View();
         }
 
