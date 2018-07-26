@@ -40,25 +40,25 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
 
     public render() {
         return <div>
-            <form>
+            <form className="form-group">
                 <div className="container">
                     <h1>Register</h1>
                     <p>Please fill in this form to create an account.</p>
                     <hr />
                     <label><b>Firstname</b></label>
-                    <input type="text" placeholder="Enter name" id="firstname" name="firstname" required />
+                    <input type="text" placeholder="Enter name" className="form-control" id="firstname" name="firstname" required />
                     <label><b>Lastname</b></label>
-                    <input type="text" placeholder="Enter lastname" id="lastname" name="lastname" required />
+                    <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname" required />
                     <label><b>Surname</b></label>
-                    <input type="text" placeholder="Enter surname" id="surname" name="surname" required />
+                    <input type="text" placeholder="Enter surname" className="form-control"id="surname" name="surname" required />
                     <label><b>Email</b></label>
-                    <input type="text" placeholder="Enter email" id="email" name="email" required />
+                    <input type="text" placeholder="Enter email" className="form-control" id="email" name="email" required />
                     <label><b>PESEL</b></label>
-                    <input type="text" placeholder="Enter PESEL" id="pesel" name="pesel" required />
+                    <input type="text" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
                     <label><b>Phone</b></label>
-                    <input type="text" placeholder="Enter phone number" id="phone" name="phone" required />
+                    <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone" required />
                     <label><b>Password</b></label>
-                    <input type="password" placeholder="Enter password" id="password" name="psw" required />
+                    <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw" required />
                     <hr />
                     <button type="button" onClick={this.userRegister} className="btn btn-default" >Submit</button>
                 </div>
