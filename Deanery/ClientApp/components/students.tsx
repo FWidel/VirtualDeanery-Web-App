@@ -35,11 +35,16 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
     private static deleteGuest(z: any) {
 
         var id = z.target.id;
+        console.log(id);
         var request = new XMLHttpRequest();
         request.open('POST', '/api/user/delete', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send({ "Id": Number(id) });
+        request.send(parseInt(id));
         z.target.parentElement.parentNode.remove();
+
+        request.onload = () => {
+            alert(request.responseText);
+        }
     }
 
 

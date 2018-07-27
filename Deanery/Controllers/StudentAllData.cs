@@ -16,7 +16,7 @@ namespace Deanery.Controllers
 
         
 
-        [Route("api/student/get-all")]
+        [Route("api/user/get-all")]
         public IActionResult Index()
         {
             var students = db.Student.Where(c => true);

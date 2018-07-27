@@ -27,6 +27,7 @@ namespace Deanery.Controllers
                 return Ok(ex.Message);
             }           
             db.SaveChanges();
+
             return Ok("Successfully deleted from database");
 
         }
