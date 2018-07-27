@@ -4,11 +4,11 @@ import 'isomorphic-fetch';
 
 var i = 0;
 
-export class Students extends React.Component<RouteComponentProps<{}>, FetchDataAboutGuests> {
+export class Students extends React.Component<RouteComponentProps<{}>, FetchDataAboutUsers> {
     constructor() {
         super();
         this.state = {
-            guests: [],
+            users: [],
             loading: true
         };
     }
@@ -19,11 +19,12 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
 
     private fetchDataFromServer() {
 
-        fetch('api/student/get-all')
-            .then(response => response.json() as Promise<Guest[]>)
+        fetch('api/user/get-all')
+            .then(response => response.json() as Promise<User[]>)
             .then(data => {
+                console.log(data)
                 this.setState({
-                    guests: data,
+                    users: data,
                     loading: false
                 });
             });
@@ -33,17 +34,17 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
 
     private static deleteGuest(z: any) {
 
-        var containerWithElements = z.target.parentElement.parentNode.children;
-        var name = containerWithElements[0].innerText;
-        var surname = containerWithElements[1].innerText;
-        var phone = containerWithElements[2].innerText;
-        var attendace = containerWithElements[3].innerText == "true" ? true : false;
+        var id = z.target.id;
+        console.log(id);
         var request = new XMLHttpRequest();
-
-        request.open('POST', '/api/guests/remove', true);
+        request.open('POST', '/api/user/delete', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send('{"Name":"' + name + '", "Surname":"' + surname + '", "Phone":"' + phone + '", "WillAttend":"' + attendace + '" }');
+        request.send(parseInt(id));
         z.target.parentElement.parentNode.remove();
+
+        request.onload = () => {
+            alert(request.responseText);
+        }
     }
 
 
@@ -51,7 +52,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
     public render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Students.renderGuestTable(this.state.guests);
+            : Students.renderGuestTable(this.state.users);
 
         return <div>
             <h1>List of all students</h1>
@@ -59,18 +60,30 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
         </div>;
     }
 
-    private static renderGuestTable(guests: Guest[]) {
+    private static renderGuestTable(users: User[]) {
         return <table className='table'>
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Surname</th>
+                    <th>Pesel</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Password</th>
                 </tr>
             </thead>
             <tbody>
-                {guests.map(guest =>
-                    <tr key={i++} >
-                        <td>{guest.name}</td>
-                        <td><button type="button" onClick={this.deleteGuest} className="btn btn-danger glyphicon glyphicon-trash"></button></td>
+                {users.map(user =>
+                    <tr key={user.id} > 
+                        <td>{user.firstname}</td>
+                        <td>{user.lastname}</td>
+                        <td>{user.surname}</td>
+                        <td>{user.pesel}</td>
+                        <td>{user.phone}</td>
+                        <td>{user.email}</td>
+                        <td>{user.password}</td>
+                        <td><button type="button" id={(user.id).toString()} onClick={this.deleteGuest} className="btn btn-danger glyphicon glyphicon-trash"></button></td>
                     </tr>
                 )}
             </tbody>
@@ -78,11 +91,22 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
     }
 }
 
-interface Guest {
-    name: string;
+interface User {
+    id: number,
+    firstname: string,
+    lastname: string,
+    surname: string,
+    pesel: string,
+    phone: string,
+    email: string,
+    password: string
+
 }
 
-interface FetchDataAboutGuests {
-    guests: Guest[];
+interface FetchDataAboutUsers {
+    users: User[],
     loading: boolean
 }
+
+
+
