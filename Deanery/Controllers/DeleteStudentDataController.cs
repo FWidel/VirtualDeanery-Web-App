@@ -14,10 +14,19 @@ namespace Deanery.Controllers
 
         [Route("api/user/delete")]
         [HttpPost]
-        public IActionResult DeleteStudentData([FromBody]Student student)
+        public IActionResult DeleteStudentData([FromBody]int Id)
         {
-
-            
+            try
+            {
+                Student student = new Student();
+                student.Id = Id;
+                db.Student.Remove(student);
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }           
+            db.SaveChanges();
             return Ok("Successfully deleted from database");
 
         }
