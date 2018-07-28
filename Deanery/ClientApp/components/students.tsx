@@ -20,16 +20,20 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
     private fetchDataFromServer() {
 
         fetch('api/user/get-all')
-            .then(response => response.json() as Promise<User[]>)
+            .then(response =>  response.json() as Promise<User[]>)
             .then(data => {
-                console.log(data)
                 this.setState({
                     users: data,
                     loading: false
                 });
+            })
+            .catch((err) => {
+                window.location.replace("login");
             });
 
     }
+
+    //      .then(response =>  response.json() as Promise<User[]>)
 
 
     private static deleteGuest(z: any) {
@@ -70,6 +74,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
                     <th>Pesel</th>
                     <th>Phone</th>
                     <th>Email</th>
+                    <th>Login</th>
                     <th>Password</th>
                 </tr>
             </thead>
@@ -83,6 +88,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
                         <td>{user.phone}</td>
                         <td>{user.email}</td>
                         <td>{user.password}</td>
+                        <td>{user.login}</td>
                         <td><button type="button" id={(user.id).toString()} onClick={this.deleteGuest} className="btn btn-danger glyphicon glyphicon-trash"></button></td>
                     </tr>
                 )}
@@ -99,7 +105,8 @@ interface User {
     pesel: string,
     phone: string,
     email: string,
-    password: string
+    password: string,
+    login: string
 
 }
 

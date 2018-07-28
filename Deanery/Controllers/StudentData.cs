@@ -24,7 +24,8 @@ namespace Deanery.Controllers
                 Pesel = student.Pesel,
                 Phone = student.Phone,
                 Email = student.Email,
-                Password = student.Password
+                Password = student.Password,
+                Login = student.Login
 
 
             };
