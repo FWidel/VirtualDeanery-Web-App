@@ -28,6 +28,7 @@ namespace Deanery.Controllers
 
 
             };
+           
             db.Student.Add(newStudent);
             db.SaveChanges();
             return Ok("Successfully add into database");
