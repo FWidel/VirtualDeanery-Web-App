@@ -14,24 +14,49 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
     }
 
     componentDidMount() {
-        this.fetchDataFromServer();
+        this.httpGetAsync();
     }
 
     private fetchDataFromServer() {
 
         fetch('api/user/get-all')
-            .then(response =>  response.json() as Promise<User[]>)
+            .then(response => response.json() as Promise<User[]>)
             .then(data => {
                 this.setState({
                     users: data,
                     loading: false
                 });
-            })
-            .catch((err) => {
-                window.location.replace("login");
             });
+            
+
+ 
+    }
+    private httpGetAsync() {
+        var xhr = new XMLHttpRequest();
+        var json_obj, status = false;
+        var self = this;
+    
+        xhr.open("GET", "api/user/get-all", true);
+        
+        xhr.onreadystatechange = function () {
+
+            if (xhr.responseText == "Unauthorized session") {
+                window.location.replace("login");
+            }
+            var data = JSON.parse (xhr.responseText);
+       
+            self.setState({
+                users: data,
+                loading: false
+            });  
+
+        }
+
+        xhr.send(null);
 
     }
+        
+ 
 
     //      .then(response =>  response.json() as Promise<User[]>)
 
@@ -87,8 +112,8 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
                         <td>{user.pesel}</td>
                         <td>{user.phone}</td>
                         <td>{user.email}</td>
-                        <td>{user.password}</td>
                         <td>{user.login}</td>
+                        <td>{user.password}</td>                       
                         <td><button type="button" id={(user.id).toString()} onClick={this.deleteGuest} className="btn btn-danger glyphicon glyphicon-trash"></button></td>
                     </tr>
                 )}

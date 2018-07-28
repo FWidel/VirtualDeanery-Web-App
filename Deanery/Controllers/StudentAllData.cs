@@ -18,15 +18,15 @@ namespace Deanery.Controllers
         
 
         [Route("api/user/get-all")]
+        [HttpGet]
         public IActionResult Index()
         {
             //HttpContext.Session.SetString("Login", "The Doctor");
             var students = db.Student.Where(c => true);
             var login = HttpContext.Session.GetString("Login");
-
             if(login == null)
             {
-                return Redirect("~/login");
+                return Ok("Unauthorized session");
 
             }
             return Ok(students);
