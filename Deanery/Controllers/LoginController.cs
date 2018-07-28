@@ -13,12 +13,12 @@ namespace Deanery.Controllers
     {
         private DbDeaneryContext db = new DbDeaneryContext();
         [Route("api/user/login")]
-        // [HttpPost]
-        public IActionResult LoginMethod()
+        [HttpPost]
+        public IActionResult LoginMethod([FromBody]ClassLogin user)
         {
-            string id = "Jakis", password = "JD";
+           
 
-            var login = db.Student.Where(p => p.Lastname == id&& p.Password == password);
+            var login = db.Student.Where(p => p.Login == user.Login&& p.Password == user.Password);
             if (login.Count()!=0 )       
              return Ok("Good");          
             else

@@ -16,7 +16,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
         var password = formData.password.value;
     
 
-        request.open('POST', serverUri + 'user/register', true);
+        request.open('POST', serverUri + 'user/login', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         formData.reset();
 
