@@ -22,9 +22,9 @@ namespace Deanery.Controllers
         {
             //HttpContext.Session.SetString("Login", "The Doctor");
             var students = db.Student.Where(c => true);
-            var name = HttpContext.Session.GetString("Login");
+            var login = HttpContext.Session.GetString("Login");
 
-            if(name == null)
+            if(login == null)
             {
                 return Redirect("~/login");
 
