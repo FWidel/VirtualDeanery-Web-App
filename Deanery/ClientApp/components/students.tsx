@@ -20,16 +20,20 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
     private fetchDataFromServer() {
 
         fetch('api/user/get-all')
-            .then(response => response.json() as Promise<User[]>)
+            .then(response =>  response.json() as Promise<User[]>)
             .then(data => {
-                console.log(data)
                 this.setState({
                     users: data,
                     loading: false
                 });
+            })
+            .catch((err) => {
+                window.location.replace("login");
             });
 
     }
+
+    //      .then(response =>  response.json() as Promise<User[]>)
 
 
     private static deleteGuest(z: any) {
