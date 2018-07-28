@@ -18,6 +18,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
         var email = formData.email.value;
         var phone = formData.phone.value;
         var pesel = formData.pesel.value;
+        var login = formData.login.value;
 
         request.open('POST', serverUri +'user/register', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -34,7 +35,8 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
             "Phone": phone,
             "Lastname": lastname,
             "Surname": surname,
-            "Pesel": pesel
+            "Pesel": pesel,
+            "Login": login
         }));
     }
 
@@ -57,6 +59,8 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
                     <input type="text" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
                     <label><b>Phone</b></label>
                     <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone" required />
+                    <label><b>Login</b></label>
+                    <input type="text" placeholder="Enter login" className="form-control" id="login" name="login" required />
                     <label><b>Password</b></label>
                     <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw" required />
                     <hr />
