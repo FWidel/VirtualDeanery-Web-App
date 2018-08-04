@@ -7,6 +7,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
         super(props);
     }
     userRegister(z: any) {
+        z.preventDefault();
         var formData;
         formData = z.target;
         console.log(formData);
@@ -33,7 +34,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
 
     public render() {
         return <div>
-            <form className="form-group" onSubmit={this.userRegister} action="#" >
+            <form className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container">
                     <h1>Login</h1>
                     <hr />

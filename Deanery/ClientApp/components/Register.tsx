@@ -6,6 +6,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         super(props);
     }
     userRegister(z: any) {
+        z.preventDefault();
         var formData;
         formData = z.target.parentElement.parentElement;
         //console.log(formData);
