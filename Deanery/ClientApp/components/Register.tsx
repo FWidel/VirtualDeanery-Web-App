@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-const serverUri  = "/api/";
-export class Home extends React.Component<RouteComponentProps<{}>, User> {
+const serverUri = "/api/";
+export class Register extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
         super(props);
     }
     userRegister(z: any) {
-        var formData;
-        formData = z.target.parentElement.parentElement;
-        //console.log(formData);
+        z.preventDefault();
+        var formData = z.target;
 
         var request = new XMLHttpRequest();
         var firstname = formData.firstname.value;
@@ -20,12 +19,16 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
         var pesel = formData.pesel.value;
         var login = formData.login.value;
 
-        request.open('POST', serverUri +'user/register', true);
+        request.open('POST', serverUri + 'user/register', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        formData.reset();
+
 
         request.onload = () => {
             alert(request.responseText);
+            if (request.responseText == "Successfully registered") {
+                var registerForm = document.getElementById("registerForm") as HTMLFormElement;
+                registerForm.reset();
+            }
         }
 
         request.send(JSON.stringify({
@@ -42,7 +45,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
 
     public render() {
         return <div>
-            <form className="form-group">
+            <form id="registerForm" className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container">
                     <h1>Register</h1>
                     <p>Please fill in this form to create an account.</p>
@@ -52,11 +55,11 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
                     <label><b>Lastname</b></label>
                     <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname" required />
                     <label><b>Surname</b></label>
-                    <input type="text" placeholder="Enter surname" className="form-control"id="surname" name="surname" required />
+                    <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="surname" required />
                     <label><b>Email</b></label>
                     <input type="text" placeholder="Enter email" className="form-control" id="email" name="email" required />
                     <label><b>PESEL</b></label>
-                    <input type="text" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
+                    <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
                     <label><b>Phone</b></label>
                     <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone" required />
                     <label><b>Login</b></label>
@@ -64,13 +67,12 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
                     <label><b>Password</b></label>
                     <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw" required />
                     <hr />
-                    <button type="button" onClick={this.userRegister} className="btn btn-default" >Submit</button>
-                </div>
-
-                <div className="container signin">
-                    <p>Already have an account? <a href="#">Sign in</a>.</p>
+                    <button type="submit" className="btn btn-default" >Submit</button>
                 </div>
             </form>
+            <div className="container signin">
+                <p>Already have an account? <a href="/login">Sign in</a>.</p>
+            </div>
         </div>;
     }
 }
