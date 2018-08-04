@@ -8,8 +8,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
     userRegister(z: any) {
         z.preventDefault();
         var formData;
-        formData = z.target.parentElement.parentElement;
-        //console.log(formData);
+        formData = z.target;
 
         var request = new XMLHttpRequest();
         var firstname = formData.firstname.value;
@@ -23,10 +22,15 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
 
         request.open('POST', serverUri +'user/register', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        formData.reset();
+      
 
         request.onload = () => {
             alert(request.responseText);
+            if (request.responseText == "Successfully registered")
+            {
+                document.getElementById("registerForm").reset();
+                
+            }
         }
 
         request.send(JSON.stringify({
@@ -43,7 +47,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
 
     public render() {
         return <div>
-            <form className="form-group" onSubmit={this.userRegister} action="#">
+            <form id="registerForm" className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container">
                     <h1>Register</h1>
                     <p>Please fill in this form to create an account.</p>
