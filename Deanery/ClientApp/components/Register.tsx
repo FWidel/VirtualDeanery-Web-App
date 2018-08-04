@@ -2,6 +2,8 @@ import * as React  from 'react';
 import { RouteComponentProps } from 'react-router';
 var ReCAPTCHA  = require("react-google-recaptcha");
 const serverUri = "/api/";
+
+
 export class Register extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
         super(props);
@@ -10,7 +12,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         z.preventDefault();
         var formData = z.target;
 
-        var form2 = document.getElementById("registerForm") as HTMLFormElement;
+        console.log(formData);
         //var v = grecaptcha.getResponse();
 
         var request = new XMLHttpRequest();
@@ -22,8 +24,8 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         var phone = formData.phone.value;
         var pesel = formData.pesel.value;
         var login = formData.login.value;
+        var captcha = formData.myCaptchaResponse.getAttribute("value");
 
-        var google = formData.
 
         request.open('POST', serverUri + 'user/register', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
@@ -45,37 +47,42 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
             "Lastname": lastname,
             "Surname": surname,
             "Pesel": pesel,
-            "Login": login
+            "Login": login,
+            "Captcha" : captcha
         }));
     }
 
-  
+
+
+
 
     public render() {
         return <div>
-            <form id="registerForm" className="form-group" method="post"  action="api/user/register">
+            <form id="registerForm" className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container">
                     <h1>Register</h1>
                     <p>Please fill in this form to create an account.</p>
                     <hr />
                     <label><b>Firstname</b></label>
-                    <input type="text" placeholder="Enter name" className="form-control" id="firstname" name="Firstname"  />
+                    <input type="text" placeholder="Enter name" className="form-control" id="firstname" name="firstname"  />
                     <label><b>Lastname</b></label>
-                    <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="Lastname"  />
+                    <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname"  />
                     <label><b>Surname</b></label>
-                    <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="Surname"  />
+                    <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="surname"  />
                     <label><b>Email</b></label>
-                    <input type="text" placeholder="Enter email" className="form-control" id="email" name="Email"  />
+                    <input type="text" placeholder="Enter email" className="form-control" id="email" name="email"  />
                     <label><b>PESEL</b></label>
-                    <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="Pesel"  />
+                    <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel"  />
                     <label><b>Phone</b></label>
-                    <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="Phone"  />
+                    <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone"  />
                     <label><b>Login</b></label>
-                    <input type="text" placeholder="Enter login" className="form-control" id="login" name="Login"  />
+                    <input type="text" placeholder="Enter login" className="form-control" id="login" name="login"  />
                     <label><b>Password</b></label>
-                    <input type="password" placeholder="Enter password" className="form-control" id="password" name="Password"  />
+                    <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw"  />
                     <hr />
-                    <div className="g-recaptcha" data-sitekey="6LfUQ2gUAAAAAJ_aYbFYClWkl001zjBiYhf6_wNs"></div>
+                    <div id="myCaptcha"></div>
+                    <input type="text" id="myCaptchaResponse" name="myCaptchaResponse" />
+                    <hr />
                   
                     <button type="submit" className="btn btn-default" >Submit</button>
                 </div>
