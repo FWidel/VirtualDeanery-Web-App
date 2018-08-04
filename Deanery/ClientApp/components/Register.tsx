@@ -27,7 +27,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         var captcha = formData.myCaptchaResponse.getAttribute("value");
 
 
-        request.open('POST', serverUri + 'user/register', true);
+        request.open('POST', serverUri + 'user/register?captcha=' + captcha, true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 
@@ -47,8 +47,8 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
             "Lastname": lastname,
             "Surname": surname,
             "Pesel": pesel,
-            "Login": login,
-            "Captcha" : captcha
+            "Login": login
+           
         }));
     }
 

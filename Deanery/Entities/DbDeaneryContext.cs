@@ -12,7 +12,7 @@ namespace Deanery.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
+                optionsBuilder.UseSqlServer(@"Data Source=192.168.0.87,49170;Initial Catalog=DbDeanery;Persist Security Info=True;User ID=franek;Password=franek");
             }
         }
 
@@ -20,10 +20,6 @@ namespace Deanery.Entities
         {
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.Property(e => e.Captcha)
-                    .HasMaxLength(300)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Email)
                     .HasMaxLength(30)
                     .IsUnicode(false);
