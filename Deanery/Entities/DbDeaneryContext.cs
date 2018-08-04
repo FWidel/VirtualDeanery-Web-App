@@ -20,10 +20,6 @@ namespace Deanery.Entities
         {
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.Property(e => e.Captcha)
-                    .HasMaxLength(300)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Email)
                     .HasMaxLength(30)
                     .IsUnicode(false);
