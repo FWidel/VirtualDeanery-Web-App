@@ -6,7 +6,7 @@ export class Logout extends React.Component<{}, States> {
     constructor(props: any) {
         super(props);
         this.state = {
-            loaded: true,
+            loaded: false,
             login: ""
         }
     }
@@ -26,25 +26,25 @@ export class Logout extends React.Component<{}, States> {
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
    
         request.onload = () => {
-            if (request.responseText != "notFound" && request.responseText !="") {
+            if (request.responseText != "notFound" ) {
 
                 this.setState({
                     loaded: true,
                     login: request.responseText
                 });
-                
-
+               
+        
             }
         }
-
-        request.send();
+        if (this.state.loaded == false) { request.send();}
+       
     }
 
     public render() {
 
    
 
-        return this.state.loaded == true ? < div >
+        return this.state.loaded == true ? < div className="rightSidePanel" >
             <span>{this.state.login}</span><button type="button" className="btn btn-primary logoutButton" onClick={this.userLogout} name="logout" > Logout </button>
             </div> : <div> </div>
     }

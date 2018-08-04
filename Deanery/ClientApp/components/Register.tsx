@@ -1,13 +1,16 @@
 import * as React from 'react';
+
 import { RouteComponentProps } from 'react-router';
 const serverUri = "/api/";
+import ReCAPTCHA from 'react-google-recaptcha';
 export class Register extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
         super(props);
     }
     userRegister(z: any) {
         z.preventDefault();
-        var formData = z.target;
+        var formData = z.target as HTMLFormElement;
+        
 
         var request = new XMLHttpRequest();
         var firstname = formData.firstname.value;
@@ -18,7 +21,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         var phone = formData.phone.value;
         var pesel = formData.pesel.value;
         var login = formData.login.value;
-
+        console.log(formData.get("g-recaptcha-response"));
         request.open('POST', serverUri + 'user/register', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
@@ -40,12 +43,18 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
             "Surname": surname,
             "Pesel": pesel,
             "Login": login
+            
         }));
+
     }
 
+    onnn(z: any) {
+        console.log(document.getElementById("g-recaptcha-response"))
+    }
+ 
     public render() {
         return <div>
-            <form id="registerForm" className="form-group" onSubmit={this.userRegister} action="#">
+            <form id="registerForm" className="form-group" onSubmit={this.userRegister} action="#" >
                 <div className="container">
                     <h1>Register</h1>
                     <p>Please fill in this form to create an account.</p>
@@ -64,8 +73,10 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
                     <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone" required />
                     <label><b>Login</b></label>
                     <input type="text" placeholder="Enter login" className="form-control" id="login" name="login" required />
-                    <label><b>Password</b></label>
+                    <label onClick={this.onnn}><b>Password</b></label>
                     <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw" required />
+                    <div className="g-recaptcha"  data-sitekey="6LfUQ2gUAAAAAJ_aYbFYClWkl001zjBiYhf6_wNs"></div>
+                                                           
                     <hr />
                     <button type="submit" className="btn btn-default" >Submit</button>
                 </div>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Deanery.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Deanery.Controllers
 {
@@ -23,9 +25,24 @@ namespace Deanery.Controllers
 
             if (email != 0)
                 return Ok("This email is already taken");
-            
-            db.Student.Add(student);
+
+            var response = Request.Form["g-recaptcha-response"];
+            string secretKey = "6LfUQ2gUAAAAAJ-GJa5h0RG25-GQhVKqOV6qkJbN";
+            var client = new WebClient();
+            var result = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(result);
+            var status = (bool)obj.SelectToken("success");
+            ViewBag.Message = status ? "Google reCaptcha validation success" : "Google reCaptcha validation failed";
+
+            return View("Index");
+        }
+
+
+
+        db.Student.Add(student);
             db.SaveChanges();
+
+
             return Ok("Successfully registered");
 
         }

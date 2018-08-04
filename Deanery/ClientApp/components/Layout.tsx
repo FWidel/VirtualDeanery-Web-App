@@ -16,9 +16,6 @@ export class Layout extends React.Component<LayoutProps, {}> {
                 <div className='col-sm-8 contentMenu'>
                     { this.props.children }
                 </div>
-                <div className='col-sm-1'>
-                    <Logout />
-                </div>
             </div>
         </div>;
     }

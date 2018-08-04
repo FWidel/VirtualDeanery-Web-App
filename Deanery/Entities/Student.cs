@@ -15,5 +15,6 @@ namespace Deanery.Entities
         public string Password { get; set; }
         public string Login { get; set; }
        
+
     }
 }

@@ -36,5 +36,25 @@ namespace Deanery.Controllers
                 return Ok("Error");
 
         }
+
+        [Route("api/user/get-current-user")]
+        [HttpPost]
+        public IActionResult Login()
+        {
+
+            
+            var login = HttpContext.Session.GetString("Login");
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student Onestudent in query)
+            {
+                return Ok(Onestudent.Login);
+            }
+            return Ok("notFound");
+
+        }
     }
 }
