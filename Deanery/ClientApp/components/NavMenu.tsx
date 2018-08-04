@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
-        return <div className='main-nav'>
+        return <div className='main-nav navMenu'>
             <div className='navbar bg-light' >
                 <div className='navbar-header'>
                     <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
@@ -19,13 +19,13 @@ export class NavMenu extends React.Component<{}, {}> {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to={'/'} exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home2
+                            <NavLink to={'/Students'} exact activeClassName='active'>
+                                <span className='glyphicon glyphicon-home'></span> Students
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to={'/'} exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home3
+                            <NavLink to={'/login'} exact activeClassName='active'>
+                                <span className='glyphicon glyphicon-home'></span> Login
                             </NavLink>
                         </li>
  

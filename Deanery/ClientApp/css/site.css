@@ -59,4 +59,25 @@
 }
 
 
+.contentMenu {
+    box-shadow: 1px 0px 2px;
+    margin-top: 50px;
+}
+
+.navMenu {
+    box-shadow: 1px 0px 2px;
+    background: #dadada;
+}
+
+.logoutButton{
+    margin-top:10px;
+}
+
+.rightSidePanel{
+    position:fixed;
+    right: 30px;
+    top : 0px;
+}
+
+
 

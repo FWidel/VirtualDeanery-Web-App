@@ -1,0 +1,104 @@
+import * as React  from 'react';
+import { RouteComponentProps } from 'react-router';
+var ReCAPTCHA  = require("react-google-recaptcha");
+const serverUri = "/api/";
+
+
+export class Register extends React.Component<RouteComponentProps<{}>, User> {
+    constructor(props: any) {
+        super(props);
+    }
+    userRegister(z: any) {
+        z.preventDefault();
+        var formData = z.target;
+
+        console.log(formData);
+        //var v = grecaptcha.getResponse();
+
+        var request = new XMLHttpRequest();
+        var firstname = formData.firstname.value;
+        var surname = formData.surname.value;
+        var lastname = formData.lastname.value;
+        var password = formData.password.value;
+        var email = formData.email.value;
+        var phone = formData.phone.value;
+        var pesel = formData.pesel.value;
+        var login = formData.login.value;
+        var captcha = formData.myCaptchaResponse.getAttribute("value");
+
+
+        request.open('POST', serverUri + 'user/register?captcha=' + captcha, true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+
+        request.onload = () => {
+            alert(request.responseText);
+            if (request.responseText == "Successfully registered") {
+                var registerForm = document.getElementById("registerForm") as HTMLFormElement;
+                registerForm.reset();
+            }
+        }
+
+        request.send(JSON.stringify({
+            "Firstname": firstname,
+            "Password": password,
+            "Email": email,
+            "Phone": phone,
+            "Lastname": lastname,
+            "Surname": surname,
+            "Pesel": pesel,
+            "Login": login
+           
+        }));
+    }
+
+
+
+
+
+    public render() {
+        return <div>
+            <form id="registerForm" className="form-group" onSubmit={this.userRegister} action="#">
+                <div className="container">
+                    <h1>Register</h1>
+                    <p>Please fill in this form to create an account.</p>
+                    <hr />
+                    <label><b>Firstname</b></label>
+                    <input type="text" placeholder="Enter name" className="form-control" id="firstname" name="firstname"  />
+                    <label><b>Lastname</b></label>
+                    <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname"  />
+                    <label><b>Surname</b></label>
+                    <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="surname"  />
+                    <label><b>Email</b></label>
+                    <input type="text" placeholder="Enter email" className="form-control" id="email" name="email"  />
+                    <label><b>PESEL</b></label>
+                    <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel"  />
+                    <label><b>Phone</b></label>
+                    <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone"  />
+                    <label><b>Login</b></label>
+                    <input type="text" placeholder="Enter login" className="form-control" id="login" name="login"  />
+                    <label><b>Password</b></label>
+                    <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw"  />
+                    <hr />
+                    <div id="myCaptcha"></div>
+                    <input type="text" id="myCaptchaResponse" name="myCaptchaResponse" />
+                    <hr />
+                  
+                    <button type="submit" className="btn btn-default" >Submit</button>
+                </div>
+            </form>
+            <div className="container signin">
+                <p>Already have an account? <a href="/login">Sign in</a>.</p>
+            </div>
+        </div>;
+    }
+}
+
+
+
+interface User {
+    Login: string;
+    Password: number;
+    email: string;
+}
+
