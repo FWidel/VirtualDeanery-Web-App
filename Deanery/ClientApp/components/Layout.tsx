@@ -12,7 +12,7 @@ export class Layout extends React.Component<LayoutProps, {}> {
                 <div className='col-sm-2'>
                     <NavMenu />
                 </div>
-                <div className='col-sm-8'>
+                <div className='col-sm-8 contentMenu'>
                     { this.props.children }
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 const serverUri  = "/api/";
-export class Home extends React.Component<RouteComponentProps<{}>, User> {
+export class Register extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
         super(props);
     }
@@ -42,7 +42,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
 
     public render() {
         return <div>
-            <form className="form-group">
+            <form className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container">
                     <h1>Register</h1>
                     <p>Please fill in this form to create an account.</p>
@@ -56,7 +56,7 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
                     <label><b>Email</b></label>
                     <input type="text" placeholder="Enter email" className="form-control" id="email" name="email" required />
                     <label><b>PESEL</b></label>
-                    <input type="text" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
+                    <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
                     <label><b>Phone</b></label>
                     <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone" required />
                     <label><b>Login</b></label>
@@ -64,13 +64,12 @@ export class Home extends React.Component<RouteComponentProps<{}>, User> {
                     <label><b>Password</b></label>
                     <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw" required />
                     <hr />
-                    <button type="button" onClick={this.userRegister} className="btn btn-default" >Submit</button>
-                </div>
-
-                <div className="container signin">
-                    <p>Already have an account? <a href="#">Sign in</a>.</p>
+                    <button type="submit" className="btn btn-default" >Submit</button>
                 </div>
             </form>
+            <div className="container signin">
+                <p>Already have an account? <a href="/login">Sign in</a>.</p>
+            </div>
         </div>;
     }
 }

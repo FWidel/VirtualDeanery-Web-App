@@ -8,8 +8,8 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
     }
     userRegister(z: any) {
         var formData;
-        formData = z.target.parentElement.parentElement;
-        //console.log(formData);
+        formData = z.target;
+        console.log(formData);
 
         var request = new XMLHttpRequest();
         var login = formData.login.value;
@@ -18,7 +18,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
 
         request.open('POST', serverUri + 'user/login', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        formData.reset();
+        //formData.reset();
 
         request.onload = () => {
             alert(request.responseText);
@@ -28,11 +28,12 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
             "Password": password,
             "Login" : login
         }));
+        return false;
     }
 
     public render() {
         return <div>
-            <form className="form-group">
+            <form className="form-group" onSubmit={this.userRegister} action="#" >
                 <div className="container">
                     <h1>Login</h1>
                     <hr />
@@ -42,13 +43,12 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
                     <input type="password" placeholder="password" className="form-control" id="password" name="password" required />
              
                     <hr />
-                    <button type="button" onClick={this.userRegister} className="btn btn-default" >Log in</button>
-                </div>
-
-                <div className="container signin">
-                    <p>Dont have account?  <a href="/register">Sign up</a>.</p>
+                    <button type="submit"  className="btn btn-default" >Log in</button>
                 </div>
             </form>
+            <div className="container signin">
+                <p>Dont have account?  <a href="/register">Sign up</a>.</p>
+            </div>
         </div>;
     }
 }
