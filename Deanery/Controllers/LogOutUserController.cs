@@ -10,7 +10,7 @@ namespace Deanery.Controllers
 {
     public class LogoutUserController : Controller
     {
-       
+        [HttpPost]
         [Route("api/user/logout")]       
         public IActionResult LogoutMethod()
         {
