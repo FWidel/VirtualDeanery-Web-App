@@ -11,14 +11,14 @@ namespace Deanery.Controllers
     public class CurrentUserDataController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
-        [Route("api/user/get-user-data")]
+        [Route("api/user/log-out")]
         [HttpGet]
         public IActionResult Index()
         {
             //HttpContext.Session.SetString("Login", "The Doctor");
             
             var login = HttpContext.Session.GetString("Login");
-            var currentUser = db.Student.Where(c => c.Login ==login);
+            var currentUser = db.Student.Where(c => c.Login ==login);        
            
             return Ok(currentUser);
         }
