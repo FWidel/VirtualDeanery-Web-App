@@ -5,6 +5,7 @@ import { Register } from './components/Register';
 import { Students } from './components/Students';
 import { Login } from './components/Login';
 
+
 export const routes = <Layout>
     <Route exact path='/' component={ Login } />
     <Route path='/students' component={Students} />
