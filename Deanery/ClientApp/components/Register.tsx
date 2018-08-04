@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-const serverUri  = "/api/";
+const serverUri = "/api/";
 export class Register extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
         super(props);
     }
     userRegister(z: any) {
         z.preventDefault();
-        var formData;
-        formData = z.target;
+        var formData = z.target;
 
         var request = new XMLHttpRequest();
         var firstname = formData.firstname.value;
@@ -20,16 +19,15 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         var pesel = formData.pesel.value;
         var login = formData.login.value;
 
-        request.open('POST', serverUri +'user/register', true);
+        request.open('POST', serverUri + 'user/register', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-      
+
 
         request.onload = () => {
             alert(request.responseText);
-            if (request.responseText == "Successfully registered")
-            {
-                document.getElementById("registerForm").reset();
-                
+            if (request.responseText == "Successfully registered") {
+                var registerForm = document.getElementById("registerForm") as HTMLFormElement;
+                registerForm.reset();
             }
         }
 
@@ -57,7 +55,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
                     <label><b>Lastname</b></label>
                     <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname" required />
                     <label><b>Surname</b></label>
-                    <input type="text" placeholder="Enter surname" className="form-control"id="surname" name="surname" required />
+                    <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="surname" required />
                     <label><b>Email</b></label>
                     <input type="text" placeholder="Enter email" className="form-control" id="email" name="email" required />
                     <label><b>PESEL</b></label>
