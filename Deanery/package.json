@@ -32,8 +32,6 @@
     "webpack-hot-middleware": "2.18.2"
   },
   "dependencies": {
-    "@types/react-google-recaptcha": "^0.9.2",
-    "react-google-recaptcha": "^0.4.1",
-    "react-recaptcha": "^2.3.10"
+    "react-google-recaptcha": "^0.14.0"
   }
 }
