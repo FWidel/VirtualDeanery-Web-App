@@ -82,8 +82,8 @@ namespace Deanery.Controllers
 
 
         [Route("api/user/change-pesel")]
-        [HttpGet]
-        public IActionResult ChangePESEL([FromQuery]JSONData property)
+        [HttpPost]
+        public IActionResult ChangePESEL([FromBody]JSONData property)
         {
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
@@ -108,8 +108,8 @@ namespace Deanery.Controllers
         }
 
         [Route("api/user/change-phone")]
-        [HttpGet]
-        public IActionResult ChangePhone([FromQuery]JSONData property)
+        [HttpPost]
+        public IActionResult ChangePhone([FromBody]JSONData property)
         {
 
             bool status = false;
@@ -134,7 +134,58 @@ namespace Deanery.Controllers
                 return Ok("Invalid Phone");
 
         }
+        [Route("api/user/change-email")]
+        [HttpPost]
+        public IActionResult ChangeEmail([FromBody]JSONData property)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+            Regex EmailRegex = new Regex(@"^[a-z][a-z0-9_-]*@[a-z0-9]*\.[a-z]{2,3}$");
 
+
+            if (!EmailRegex.IsMatch(property.Property))
+                return Ok("Invalid email");
+
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student ord in query)
+            {
+                ord.Email = property.Property;
+                status = true;
+
+            }
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Error");
+        }
+        [Route("api/user/change-surname")]
+        [HttpPost]
+        public IActionResult ChangeSurname([FromBody]JSONData property)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student ord in query)
+            {
+                ord.Surname = property.Property;
+                status = true;
+
+            }
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Error");
+        }
         [Route("api/user/get-image")]
         [HttpPost]
         public IActionResult getImage([FromBody] byte[] image)
