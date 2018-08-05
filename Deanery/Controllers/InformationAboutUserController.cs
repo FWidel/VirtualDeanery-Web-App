@@ -56,10 +56,19 @@ namespace Deanery.Controllers
 
         [Route("api/user/change-firstname")]
         [HttpGet]
-        public IActionResult ChangeName([FromQuery]string FirstName)
+        public IActionResult ChangeName([FromQuery]Student student)
         {
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
+            Regex PeselRegex = new Regex(@"[0-9]{11}");
+            Regex PhoneNumberRegex = new Regex(@"[0-9]");
+            Regex EmailRegex = new Regex(@"^[a-z][a-z0-9_-]*@[a-z0-9]*\.[a-z]{2,3}$");
+            if (!PeselRegex.IsMatch(student.Pesel))
+                return Ok("Invalid PESEL");
+            if (!PhoneNumberRegex.IsMatch(student.Phone))
+                return Ok("Invalid Phone");
+            if (!EmailRegex.IsMatch(student.Email))
+                return Ok("Invalid Email");
 
             var query =
                         from Onestudent in db.Student
@@ -67,9 +76,13 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student ord in query)
             {
-                ord.Firstname = FirstName;
-                status = true;
+                ord.Firstname = student.Firstname;
+                ord.Lastname = student.Lastname;
+                ord.Surname = student.Surname;
+                ord.Pesel = student.Pesel;
+                ord.Phone = student.Phone;
 
+                status = true;
             }
             db.SaveChanges();
             if (status)
@@ -78,67 +91,10 @@ namespace Deanery.Controllers
                 return Ok("Error");
         }
 
-
-        [Route("api/user/change-pesel")]
-        [HttpGet]
-        public IActionResult ChangePESEL([FromQuery]string PESEL)
-        {
-            bool status = false;
-            var login = HttpContext.Session.GetString("Login");
-            Regex PeselRegex = new Regex(@"[0-9]{11}");
-            if (PeselRegex.IsMatch(PESEL))
-            {              
-                var query =
-                            from Onestudent in db.Student
-                            where Onestudent.Login == login
-                            select Onestudent;
-                foreach (Student ord in query)
-                {
-                    ord.Pesel = PESEL;
-                    status = true;
-                }
-                db.SaveChanges();
-            }
-            if (status)
-                return Ok("Success");
-            else
-                return Ok("Invalid PESEL");
-        }
-
-        [Route("api/user/change-phone")]
-        [HttpGet]
-        public IActionResult ChangePhone([FromQuery]string Phone)
-        {
-
-            bool status = false;
-            var login = HttpContext.Session.GetString("Login");
-            Regex PhoneNumberRegex = new Regex(@"[0-9]");
-            if (PhoneNumberRegex.IsMatch(Phone))
-            {
-                var query =
-                            from Onestudent in db.Student
-                            where Onestudent.Login == login
-                            select Onestudent;
-                foreach (Student ord in query)
-                {
-                    ord.Phone = Phone;
-                    status = true;
-                }
-                db.SaveChanges();
-            }
-            if (status)
-                return Ok("Success");
-            else
-                return Ok("Invalid Phone");
-
-        }
-
         [Route("api/user/get-image")]
         [HttpPost]
         public IActionResult getImage([FromBody] byte[] image)
         {
-
-         
             var login = HttpContext.Session.GetString("Login");
             bool status = false;
             var query =
