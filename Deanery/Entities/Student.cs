@@ -14,6 +14,6 @@ namespace Deanery.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string Login { get; set; }
-        public string Captcha { get; set; }
+        public byte[] Image { get; set; }
     }
 }
