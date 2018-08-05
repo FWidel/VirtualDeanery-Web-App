@@ -14,22 +14,15 @@ namespace Deanery.Controllers
         [Route("api/user/get-current")]
         [HttpPost]
         public Student Index()
-        {
-
-
-            bool status = false;
+        {        
             var login = HttpContext.Session.GetString("Login");
-
             var query =
                         from Onestudent in db.Student
                         where Onestudent.Login == login
                         select Onestudent;
-            foreach (Student ord in query)
-            {
-
+            foreach (Student ord in query)           
                 return ord;
-
-            }
+            
             return null;
         }
     }
