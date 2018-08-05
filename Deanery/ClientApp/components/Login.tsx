@@ -2,10 +2,15 @@
 import { RouteComponentProps } from 'react-router';
 const serverUri = "/api/";
 import { Logout } from './Logout';
-export class Login extends React.Component<RouteComponentProps<{}>, User> {
+export class Login extends React.Component<RouteComponentProps<User>, { Message : string}> {
     constructor(props: any) {
         super(props);
+        this.state = {
+            Message : ""
+        }
+        this.userRegister = this.userRegister.bind(this);
     }
+
     userRegister(z: any) {
         z.preventDefault();
         var formData;
@@ -20,15 +25,17 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
         request.open('POST', serverUri + 'user/login', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         //formData.reset();
-
         request.onload = () => {
             if (request.responseText != "Bad") {
                 window.location.replace("/index");
             }
             else {
-                console.log()
+                this.setState({
+                    Message: request.responseText
+                })
             }
         }
+ 
 
         request.send(JSON.stringify({
             "Password": password,
@@ -41,10 +48,10 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
         return <div>
             <form className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container">
-                    <hr/>
-                    <div className="alert alert-danger">
-                        <strong>Warning!</strong> Invalid login or password
-                    </div>
+                    <hr />
+                    {this.state.Message != "" ? <div className="alert alert-danger">
+                        <strong>Warning!</strong> {this.state.Message}
+                    </div> : <span/>}
                     <h1>Login</h1>
                     <hr />
                     <label><b>Login</b></label>
