@@ -87,6 +87,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
         return <div>
             <h1>List of all students</h1>
             {contents}
+            <Logout />
         </div>;
     }
 
@@ -106,8 +107,8 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
             </thead>
             <tbody>
                 {users.map(user =>
-                    <tr key={user.id} > 
-                        <td>{user.firstname}</td>
+                    <tr key={user.id} >
+                        <td><input type="text" name="xD" placeholder={user.firstname} /></td>
                         <td>{user.lastname}</td>
                         <td>{user.surname}</td>
                         <td>{user.pesel}</td>
@@ -119,7 +120,6 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
                     </tr>
                 )}
             </tbody>
-            <Logout />
         </table>;
     }
 }
