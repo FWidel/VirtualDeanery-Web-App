@@ -12,11 +12,11 @@ namespace Deanery.Controllers
     public class InformationAboutUserController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
-        [Route("api/user/change-pass")]
-        [HttpGet]
+        [Route("api/user/change-password")]
+        [HttpPost]
         public IActionResult ChangePass([FromQuery]string pass)
         {
-            
+
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
 
@@ -35,15 +35,12 @@ namespace Deanery.Controllers
                 return Ok("Success");
             else
                 return Ok("Error");
-
         }
 
         [Route("api/user/get-current-user")]
         [HttpPost]
         public IActionResult Login()
         {
-
-            
             var login = HttpContext.Session.GetString("Login");
 
             var query =
@@ -55,6 +52,84 @@ namespace Deanery.Controllers
                 return Ok(Onestudent.Login);
             }
             return Ok("notFound");
+        }
+
+        [Route("api/user/change-firstname")]
+        [HttpGet]
+        public IActionResult ChangeName([FromQuery]string FirstName)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student ord in query)
+            {
+                ord.Firstname = FirstName;
+                status = true;
+
+            }
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Error");
+        }
+
+
+        [Route("api/user/change-pesel")]
+        [HttpGet]
+        public IActionResult ChangePESEL([FromQuery]string PESEL)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+            Regex PeselRegex = new Regex(@"[0-9]{11}");
+            if (PeselRegex.IsMatch(PESEL))
+            {              
+                var query =
+                            from Onestudent in db.Student
+                            where Onestudent.Login == login
+                            select Onestudent;
+                foreach (Student ord in query)
+                {
+                    ord.Pesel = PESEL;
+                    status = true;
+                }
+                db.SaveChanges();
+            }
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Invalid PESEL");
+        }
+
+        [Route("api/user/change-phone")]
+        [HttpGet]
+        public IActionResult ChangePhone([FromQuery]string Phone)
+        {
+
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+            Regex PhoneNumberRegex = new Regex(@"[0-9]");
+            if (PhoneNumberRegex.IsMatch(Phone))
+            {
+                var query =
+                            from Onestudent in db.Student
+                            where Onestudent.Login == login
+                            select Onestudent;
+                foreach (Student ord in query)
+                {
+                    ord.Phone = Phone;
+                    status = true;
+                }
+                db.SaveChanges();
+            }
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Invalid Phone");
 
         }
 
