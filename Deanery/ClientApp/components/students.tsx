@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
+import { Logout } from './Logout';
 
 var i = 0;
 
@@ -118,6 +119,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
                     </tr>
                 )}
             </tbody>
+            <Logout />
         </table>;
     }
 }
