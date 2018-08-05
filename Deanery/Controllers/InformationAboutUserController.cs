@@ -55,8 +55,8 @@ namespace Deanery.Controllers
         }
 
         [Route("api/user/change-firstname")]
-        [HttpGet]
-        public IActionResult ChangeName([FromQuery]string FirstName)
+        [HttpPost]
+        public IActionResult ChangeName([FromBody]string property)
         {
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
@@ -67,7 +67,7 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student ord in query)
             {
-                ord.Firstname = FirstName;
+                ord.Firstname = property;
                 status = true;
 
             }
