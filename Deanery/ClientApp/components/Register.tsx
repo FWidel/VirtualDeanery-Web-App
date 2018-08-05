@@ -34,8 +34,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         request.onload = () => {
             alert(request.responseText);
             if (request.responseText == "Successfully registered") {
-                var registerForm = document.getElementById("registerForm") as HTMLFormElement;
-                registerForm.reset();
+                window.location.replace("/login");
             }
         }
 
