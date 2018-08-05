@@ -51,7 +51,7 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
 
          
             self.setState({
-                users: data[0],
+                users: data,
                 loading: false
             });
 
@@ -82,7 +82,17 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
 
         request.open('POST', '/api/user/change-' + this.state.currentEdition, true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send(JSON.stringify({ "property": value.value }));
+        request.send(JSON.stringify({ "Property": value.value }));
+
+        request.onload = () => {
+
+            this.httpGetAsync();
+        }
+
+
+
+
+
 
 
         this.httpGetAsync();
@@ -187,7 +197,8 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" name="modalButton" onClick={this.saveModalContext} className="btn btn-primary">Save changes</button>
+                                        <button type="button" name="modalButton" data-dismiss="modal"
+                                            onClick={this.saveModalContext} className="btn btn-primary">Save changes</button>
                                     </div>
                                 </form>
                             </div>
