@@ -41,7 +41,7 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
 
         }
 
-        xhr.send({"XD" : 0});
+        xhr.send({ "XD": 0 });
 
     }
 
@@ -73,42 +73,58 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
             : CurrentUser.renderGuestTable(this.state.users);
 
         return <div>
-            <h1>Your information</h1>
+            <h3>Your information</h3>
             {contents}
             <Logout />
         </div>;
     }
 
     private static renderGuestTable(users: User[]) {
-        return <table className='table'>
-            <thead>
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Surname</th>
-                    <th>Pesel</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Login</th>
-                    <th>Password</th>
-                </tr>
-            </thead>
-            <tbody>
-                {users.map(user =>
-                    <tr key={user.id} >
-                        <td><input type="text" name="xD" placeholder={user.firstname} /></td>
-                        <td>{user.lastname}</td>
-                        <td>{user.surname}</td>
-                        <td>{user.pesel}</td>
-                        <td>{user.phone}</td>
-                        <td>{user.email}</td>
-                        <td>{user.login}</td>
-                        <td>{user.password}</td>
-                        
-                    </tr>
-                )}
-            </tbody>
-        </table>;
+        return <div>
+            {users.map(user =>
+                <div className="panel panel-info">
+                    <div className="panel-heading">
+                        <h3 className="panel-title"><b>{user.login}</b></h3>
+                    </div>
+                    <div className="col-md-2 col-lg-2 userImage">
+                        <img alt="User Pic" src="https://kazut.pl/wp-content/themes/Aether/library/img/default-image.jpg" className="img-circle img-responsive"/>
+                            </div>
+                    <div className=" col-md-9 col-lg-9 ">
+                        <table className="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>Firstname:</td>
+                                    <td>{user.firstname}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lastname:</td>
+                                    <td>{user.lastname}</td>
+                                </tr>
+                                <tr>
+                                    <td>Surname</td>
+                                    <td>{user.surname}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Pesel</td>
+                                    <td>{user.pesel}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>{user.phone}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{user.email}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+        </div>;
+
     }
 }
 
