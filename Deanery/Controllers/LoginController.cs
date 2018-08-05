@@ -28,7 +28,7 @@ namespace Deanery.Controllers
 
             }
             else
-                return Ok("Invalid Email or Password");
+                return Ok("Invalid Login or Password");
         }
 
 

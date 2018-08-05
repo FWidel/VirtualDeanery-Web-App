@@ -6,12 +6,28 @@ import { Logout } from './Logout';
 var i = 0;
 
 export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchDataAboutUsers> {
+
+
     constructor() {
         super();
         this.state = {
-            users: [],
-            loading: true
+            users: {
+                id: 0,
+                firstname: "",
+                lastname: "",
+                phone: "",
+                password: "",
+                login: "",
+                surname: "",
+                pesel: "",
+                email : ""
+            },
+            loading: true,
+            currentEdition: ""
         };
+        this.changeModalContext = this.changeModalContext.bind(this);
+        this.saveModalContext = this.saveModalContext.bind(this);
+        this.renderGuestTable = this.renderGuestTable.bind(this);
     }
 
     componentDidMount() {
@@ -32,16 +48,16 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                 window.location.replace("login");
             }
             var data = JSON.parse(xhr.responseText);
-            console.log(xhr.responseText);
 
+         
             self.setState({
-                users: data,
+                users: data[0],
                 loading: false
             });
 
         }
 
-        xhr.send({ "XD": 0 });
+        xhr.send();
 
     }
 
@@ -65,67 +81,126 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         }
     }
 
+    private changeModalContext(event: any) {
+
+        var oldValue = event.target.parentElement.firstChild.innerHTML;
+
+        var element = document.getElementById("propertyToChange") as HTMLInputElement;
+        element.setAttribute("placeholder", oldValue);
+        this.setState({
+           currentEdition: event.target.id 
+    })
+
+}
+
+    private  saveModalContext(event: any) {
+    var value = document.getElementById("propertyToChange") as HTMLInputElement;
+
+        var request = new XMLHttpRequest();
+
+        request.open('POST', '/api/user/change-' + this.state.currentEdition, true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send(JSON.stringify({ "property": value.value }));
+
+
+
+
+
+
+        this.httpGetAsync();
+
+}
+
 
 
     public render() {
-        let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : CurrentUser.renderGuestTable(this.state.users);
+    let contents = this.state.loading
+        ? <p><em>Loading...</em></p>
+        : this.renderGuestTable(this.state.users);
 
-        return <div>
-            <h3>Your information</h3>
-            {contents}
-            <Logout />
-        </div>;
-    }
+    return <div>
+        <h3>Your information</h3>
+        {contents}
+        <Logout />
+    </div>;
+}
 
-    private static renderGuestTable(users: User[]) {
-        return <div>
-            {users.map(user =>
-                <div className="panel panel-info">
-                    <div className="panel-heading">
-                        <h3 className="panel-title"><b>{user.login}</b></h3>
-                    </div>
-                    <div className="col-md-2 col-lg-2 userImage">
-                        <img alt="User Pic" src="https://kazut.pl/wp-content/themes/Aether/library/img/default-image.jpg" className="img-circle img-responsive"/>
+
+
+    private renderGuestTable(users: User) {
+    return <div>
+        {
+            <div className="panel panel-info" key={this.state.users.id} >
+                <div className="panel-heading">
+                    <h3 className="panel-title"><b>{this.state.users.login}</b></h3>
+                </div>
+                <div className="col-md-2 col-lg-2 userImage">
+                    <img alt="User Pic" src="https://kazut.pl/wp-content/themes/Aether/library/img/default-image.jpg" className="img-circle img-responsive" />
+                </div>
+                <div className=" col-md-9 col-lg-9 ">
+                    <table className="table table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>Firstname:</td>
+                                <td>
+                                    <span id="userName">{this.state.users.firstname}</span>
+                                    <button data-toggle="modal" onClick={this.changeModalContext}
+                                        data-target="#exampleModal" id="firstname" className="btn glyphicon glyphicon-pencil"></button>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>Lastname:</td>
+                                <td>{this.state.users.lastname}</td>
+                            </tr>
+                            <tr>
+                                <td>Surname</td>
+                                <td>{this.state.users.surname}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Pesel</td>
+                                <td>{this.state.users.pesel}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>{this.state.users.phone}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{this.state.users.email}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div className="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">Editing your account information</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form>
+                                    <div className="modal-body">
+                                        <input className="form-control" type="text" name="toChange" id="propertyToChange" placeholder="xD" />
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" name="modalButton" onClick={this.saveModalContext} className="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
-                    <div className=" col-md-9 col-lg-9 ">
-                        <table className="table table-user-information">
-                            <tbody>
-                                <tr>
-                                    <td>Firstname:</td>
-                                    <td>{user.firstname}</td>
-                                </tr>
-                                <tr>
-                                    <td>Lastname:</td>
-                                    <td>{user.lastname}</td>
-                                </tr>
-                                <tr>
-                                    <td>Surname</td>
-                                    <td>{user.surname}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Pesel</td>
-                                    <td>{user.pesel}</td>
-                                </tr>
-                                <tr>
-                                    <td>Phone</td>
-                                    <td>{user.phone}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>{user.email}</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
                 </div>
-            )}
-        </div>;
+            </div>
+        }
+    </div>;
 
-    }
+}
 }
 
 interface User {
@@ -142,8 +217,9 @@ interface User {
 }
 
 interface FetchDataAboutUsers {
-    users: User[],
-    loading: boolean
+    users: User,
+    loading: boolean,
+    currentEdition: string
 }
 
 
