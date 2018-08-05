@@ -13,14 +13,23 @@ namespace Deanery.Controllers
         private DbDeaneryContext db = new DbDeaneryContext();
         [Route("api/user/get-current")]
         [HttpPost]
-        public IActionResult Index()
+        public Student Index()
         {
            
             
             var login = HttpContext.Session.GetString("Login");
-            var currentUser = db.Student.Where(c => c.Login ==login);        
            
-            return Ok(currentUser);
+            var query =
+                       from Onestudent in db.Student
+                       where Onestudent.Login == login
+                       select Onestudent;
+            foreach (Student Onestudent in query)
+            {
+                return Onestudent;
+         
+            }
+            return null;
+           
         }
     }
 }
