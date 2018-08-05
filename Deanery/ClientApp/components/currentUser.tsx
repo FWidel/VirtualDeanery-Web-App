@@ -63,24 +63,6 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
 
 
 
-    //      .then(response =>  response.json() as Promise<User[]>)
-
-
-    private static deleteGuest(z: any) {
-
-        var id = z.target.id;
-        console.log(id);
-        var request = new XMLHttpRequest();
-        request.open('POST', '/api/user/delete', true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send(parseInt(id));
-        z.target.parentElement.parentNode.remove();
-
-        request.onload = () => {
-            alert(request.responseText);
-        }
-    }
-
     private changeModalContext(event: any) {
 
         var oldValue = event.target.parentElement.firstChild.innerHTML;
@@ -143,7 +125,7 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                             <tr>
                                 <td>Firstname:</td>
                                 <td>
-                                    <span id="userName">{this.state.users.firstname}</span>
+                                    <span className="currentUserLabel">{this.state.users.firstname}</span>
                                     <button data-toggle="modal" onClick={this.changeModalContext}
                                         data-target="#exampleModal" id="firstname" className="btn glyphicon glyphicon-pencil"></button>
                                 </td>
@@ -151,24 +133,44 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                             </tr>
                             <tr>
                                 <td>Lastname:</td>
-                                <td>{this.state.users.lastname}</td>
+                                <td>
+                                    <span className="currentUserLabel">{this.state.users.lastname}</span>
+                                    <button data-toggle="modal" onClick={this.changeModalContext}
+                                        data-target="#exampleModal" id="lastname" className="btn glyphicon glyphicon-pencil"></button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Surname</td>
-                                <td>{this.state.users.surname}</td>
+                                <td>
+                                    <span className="currentUserLabel">{this.state.users.surname}</span>
+                                    <button data-toggle="modal" onClick={this.changeModalContext}
+                                        data-target="#exampleModal" id="surname" className="btn glyphicon glyphicon-pencil"></button>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td>Pesel</td>
-                                <td>{this.state.users.pesel}</td>
+                                <td>
+                                    <span className="currentUserLabel">{this.state.users.pesel}</span>
+                                    <button data-toggle="modal" onClick={this.changeModalContext}
+                                        data-target="#exampleModal" id="pesel" className="btn glyphicon glyphicon-pencil"></button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Phone</td>
-                                <td>{this.state.users.phone}</td>
+                                <td>
+                                    <span className="currentUserLabel">{this.state.users.phone}</span>
+                                    <button data-toggle="modal" onClick={this.changeModalContext}
+                                        data-target="#exampleModal" id="phone" className="btn glyphicon glyphicon-pencil"></button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Email</td>
-                                <td>{this.state.users.email}</td>
+                                <td>
+                                    <span className="currentUserLabel">{this.state.users.email}</span>
+                                    <button data-toggle="modal" onClick={this.changeModalContext}
+                                        data-target="#exampleModal" id="email" className="btn glyphicon glyphicon-pencil"></button>
+                                </td>
                             </tr>
 
                         </tbody>

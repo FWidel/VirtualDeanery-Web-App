@@ -150,8 +150,13 @@
 
 
 .glyphicon-pencil{
-    left: 30px;
+    right: -30px;
     padding: 2px 4px 2px 4px;
     font-size:110%;
+}
+
+.currentUserLabel {
+    display: inline-block;
+    min-width: 200px;
 }
 
