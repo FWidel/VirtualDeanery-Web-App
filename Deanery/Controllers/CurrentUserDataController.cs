@@ -12,7 +12,7 @@ namespace Deanery.Controllers
     {
         private DbDeaneryContext db = new DbDeaneryContext();
         [Route("api/user/get-current")]
-        [HttpGet]
+        [HttpPost]
         public IActionResult Index()
         {
            
