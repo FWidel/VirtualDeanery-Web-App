@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Deanery.Entities;
+using Deanery.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,8 +57,9 @@ namespace Deanery.Controllers
 
         [Route("api/user/change-firstname")]
         [HttpPost]
-        public IActionResult ChangeName([FromBody]string property)
+        public IActionResult ChangeName([FromBody]JSONData property)
         {
+
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
 
@@ -67,7 +69,7 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student ord in query)
             {
-                ord.Firstname = property;
+                ord.Firstname = property.Property;
                 status = true;
 
             }
@@ -81,12 +83,12 @@ namespace Deanery.Controllers
 
         [Route("api/user/change-pesel")]
         [HttpGet]
-        public IActionResult ChangePESEL([FromQuery]string PESEL)
+        public IActionResult ChangePESEL([FromQuery]JSONData property)
         {
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
             Regex PeselRegex = new Regex(@"[0-9]{11}");
-            if (PeselRegex.IsMatch(PESEL))
+            if (PeselRegex.IsMatch(property.Property))
             {              
                 var query =
                             from Onestudent in db.Student
@@ -94,7 +96,7 @@ namespace Deanery.Controllers
                             select Onestudent;
                 foreach (Student ord in query)
                 {
-                    ord.Pesel = PESEL;
+                    ord.Pesel = property.Property;
                     status = true;
                 }
                 db.SaveChanges();
@@ -107,13 +109,13 @@ namespace Deanery.Controllers
 
         [Route("api/user/change-phone")]
         [HttpGet]
-        public IActionResult ChangePhone([FromQuery]string Phone)
+        public IActionResult ChangePhone([FromQuery]JSONData property)
         {
 
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
             Regex PhoneNumberRegex = new Regex(@"[0-9]");
-            if (PhoneNumberRegex.IsMatch(Phone))
+            if (PhoneNumberRegex.IsMatch(property.Property))
             {
                 var query =
                             from Onestudent in db.Student
@@ -121,7 +123,7 @@ namespace Deanery.Controllers
                             select Onestudent;
                 foreach (Student ord in query)
                 {
-                    ord.Phone = Phone;
+                    ord.Phone = property.Property;
                     status = true;
                 }
                 db.SaveChanges();
