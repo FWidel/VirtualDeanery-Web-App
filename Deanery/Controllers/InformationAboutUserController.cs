@@ -82,8 +82,8 @@ namespace Deanery.Controllers
 
 
         [Route("api/user/change-pesel")]
-        [HttpGet]
-        public IActionResult ChangePESEL([FromQuery]JSONData property)
+        [HttpPost]
+        public IActionResult ChangePESEL([FromBody]JSONData property)
         {
             bool status = false;
             var login = HttpContext.Session.GetString("Login");

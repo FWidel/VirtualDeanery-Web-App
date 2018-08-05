@@ -69,6 +69,7 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
 
         var element = document.getElementById("propertyToChange") as HTMLInputElement;
         element.setAttribute("placeholder", oldValue);
+        element.setAttribute("value", "");
         this.setState({
            currentEdition: event.target.id 
     })
@@ -84,13 +85,14 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.send(JSON.stringify({ "Property": value.value }));
 
+        request.onreadystatechange = () => {
+
+        }
+
         request.onload = () => {
 
             this.httpGetAsync();
         }
-
-
-
 
 
 
