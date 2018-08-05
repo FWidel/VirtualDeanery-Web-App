@@ -79,5 +79,14 @@
     top : 0px;
 }
 
+#myCaptchaResponse{
+    visibility:hidden;
+}
+
+
+.container{
+    width:500px;
+}
+
 
 

@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 const serverUri = "/api/";
-
+import { Logout } from './Logout';
 export class Login extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
         super(props);
@@ -50,6 +50,7 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
             <div className="container signin">
                 <p>Dont have account?  <a href="/register">Sign up</a>.</p>
             </div>
+            <Logout />
         </div>;
     }
 }

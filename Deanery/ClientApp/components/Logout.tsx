@@ -45,7 +45,7 @@ export class Logout extends React.Component<{}, States> {
    
 
         return this.state.loaded == true ? < div className="rightSidePanel" >
-            <span>{this.state.login}</span><button type="button" className="btn btn-primary logoutButton" onClick={this.userLogout} name="logout" > Logout </button>
+            <span><b>{this.state.login}</b></span><button type="button" className="btn btn-primary logoutButton" onClick={this.userLogout} name="logout" > Logout </button>
             </div> : <div> </div>
     }
 }
