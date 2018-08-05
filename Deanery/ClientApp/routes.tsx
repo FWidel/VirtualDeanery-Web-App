@@ -4,6 +4,7 @@ import { Layout } from './components/Layout';
 import { Register } from './components/Register';
 import { Students } from './components/Students';
 import { Login } from './components/Login';
+import { Index } from './components/Index';
 
 
 export const routes = <Layout>
@@ -11,4 +12,6 @@ export const routes = <Layout>
     <Route path='/students' component={Students} />
     <Route path='/login' component={Login} />
     <Route path='/register' component={Register} />
+    <Route path='/index' component={Index} />
+   
 </Layout>;

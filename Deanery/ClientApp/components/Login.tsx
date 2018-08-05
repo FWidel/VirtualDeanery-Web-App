@@ -15,19 +15,24 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
         var request = new XMLHttpRequest();
         var login = formData.login.value;
         var password = formData.password.value;
-    
+
 
         request.open('POST', serverUri + 'user/login', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         //formData.reset();
 
         request.onload = () => {
-            alert(request.responseText);
+            if (request.responseText != "Bad") {
+                window.location.replace("/index");
+            }
+            else {
+                console.log()
+            }
         }
 
         request.send(JSON.stringify({
             "Password": password,
-            "Login" : login
+            "Login": login
         }));
         return false;
     }
@@ -36,15 +41,19 @@ export class Login extends React.Component<RouteComponentProps<{}>, User> {
         return <div>
             <form className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container">
+                    <hr/>
+                    <div className="alert alert-danger">
+                        <strong>Warning!</strong> Invalid login or password
+                    </div>
                     <h1>Login</h1>
                     <hr />
                     <label><b>Login</b></label>
                     <input type="text" placeholder="login" className="form-control" id="login" name="login" required />
                     <label><b>Password</b></label>
                     <input type="password" placeholder="password" className="form-control" id="password" name="password" required />
-             
+
                     <hr />
-                    <button type="submit"  className="btn btn-default" >Log in</button>
+                    <button type="submit" className="btn btn-default" >Log in</button>
                 </div>
             </form>
             <div className="container signin">
