@@ -15,7 +15,7 @@ namespace Deanery.Controllers
         [HttpPost]
         public IActionResult Index()
         {
-            //HttpContext.Session.SetString("Login", "The Doctor");
+           
             
             var login = HttpContext.Session.GetString("Login");
             var currentUser = db.Student.Where(c => c.Login ==login);        

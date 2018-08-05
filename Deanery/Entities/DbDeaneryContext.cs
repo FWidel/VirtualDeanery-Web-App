@@ -12,7 +12,7 @@ namespace Deanery.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=192.168.0.87,49170;Initial Catalog=DbDeanery;Persist Security Info=True;User ID=franek;Password=franek");
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
             }
         }
 
@@ -28,6 +28,8 @@ namespace Deanery.Entities
                     .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Image).HasColumnType("image");
 
                 entity.Property(e => e.Lastname)
                     .HasMaxLength(30)
