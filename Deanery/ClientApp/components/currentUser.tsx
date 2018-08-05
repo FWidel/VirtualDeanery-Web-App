@@ -85,10 +85,6 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         request.send(JSON.stringify({ "property": value.value }));
 
 
-
-
-
-
         this.httpGetAsync();
 
 }
