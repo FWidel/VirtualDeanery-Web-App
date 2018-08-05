@@ -1,6 +1,6 @@
-import * as React  from 'react';
+import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-var ReCAPTCHA  = require("react-google-recaptcha");
+var ReCAPTCHA = require("react-google-recaptcha");
 const serverUri = "/api/";
 
 
@@ -34,8 +34,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         request.onload = () => {
             alert(request.responseText);
             if (request.responseText == "Successfully registered") {
-                var registerForm = document.getElementById("registerForm") as HTMLFormElement;
-                registerForm.reset();
+                window.location.replace("/login");
             }
         }
 
@@ -48,7 +47,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
             "Surname": surname,
             "Pesel": pesel,
             "Login": login
-           
+
         }));
     }
 
@@ -64,26 +63,23 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
                     <p>Please fill in this form to create an account.</p>
                     <hr />
                     <label><b>Firstname</b></label>
-                    <input type="text" placeholder="Enter name" className="form-control" id="firstname" name="firstname"  />
+                    <input type="text" placeholder="Enter name" className="form-control" id="firstname" name="firstname" required />
                     <label><b>Lastname</b></label>
-                    <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname"  />
+                    <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname" required />
                     <label><b>Surname</b></label>
-                    <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="surname"  />
+                    <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="surname" required />
                     <label><b>Email</b></label>
-                    <input type="text" placeholder="Enter email" className="form-control" id="email" name="email"  />
+                    <input type="text" placeholder="Enter email" className="form-control" id="email" name="email" required />
                     <label><b>PESEL</b></label>
-                    <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel"  />
+                    <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
                     <label><b>Phone</b></label>
-                    <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone"  />
+                    <input type="text" placeholder="Enter phone number" className="form-control" id="phone" name="phone" required />
                     <label><b>Login</b></label>
-                    <input type="text" placeholder="Enter login" className="form-control" id="login" name="login"  />
+                    <input type="text" placeholder="Enter login" className="form-control" id="login" name="login" required />
                     <label><b>Password</b></label>
-                    <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw"  />
-                    <hr />
+                    <input type="password" placeholder="Enter password" className="form-control" id="password" name="psw" required />
                     <div id="myCaptcha"></div>
                     <input type="text" id="myCaptchaResponse" name="myCaptchaResponse" />
-                    <hr />
-                  
                     <button type="submit" className="btn btn-default" >Submit</button>
                 </div>
             </form>

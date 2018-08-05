@@ -1,11 +1,11 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 import { Logout } from './Logout';
 
 var i = 0;
 
-export class Students extends React.Component<RouteComponentProps<{}>, FetchDataAboutUsers> {
+export class Settings extends React.Component<RouteComponentProps<{}>, FetchDataAboutUsers> {
     constructor() {
         super();
         this.state = {
@@ -28,36 +28,36 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
                     loading: false
                 });
             });
-            
 
- 
+
+
     }
     private httpGetAsync() {
         var xhr = new XMLHttpRequest();
         var json_obj, status = false;
         var self = this;
-    
+
         xhr.open("GET", "api/user/get-all", true);
-        
+
         xhr.onreadystatechange = function () {
 
             if (xhr.responseText == "Unauthorized session") {
                 window.location.replace("login");
             }
-            var data = JSON.parse (xhr.responseText);
-       
+            var data = JSON.parse(xhr.responseText);
+
             self.setState({
                 users: data,
                 loading: false
-            });  
+            });
 
         }
 
         xhr.send(null);
 
     }
-        
- 
+
+
 
     //      .then(response =>  response.json() as Promise<User[]>)
 
@@ -82,7 +82,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
     public render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : Students.renderGuestTable(this.state.users);
+            : Settings.renderGuestTable(this.state.users);
 
         return <div>
             <h1>List of all students</h1>
@@ -115,7 +115,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
                         <td>{user.phone}</td>
                         <td>{user.email}</td>
                         <td>{user.login}</td>
-                        <td>{user.password}</td>                       
+                        <td>{user.password}</td>
                         <td><button type="button" id={(user.id).toString()} onClick={this.deleteGuest} className="btn btn-danger glyphicon glyphicon-trash"></button></td>
                     </tr>
                 )}

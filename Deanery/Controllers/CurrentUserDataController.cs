@@ -11,8 +11,8 @@ namespace Deanery.Controllers
     public class CurrentUserDataController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
-        [Route("api/user/log-out")]
-        [HttpGet]
+        [Route("api/user/get-current")]
+        [HttpPost]
         public IActionResult Index()
         {
             //HttpContext.Session.SetString("Login", "The Doctor");
