@@ -20,7 +20,8 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                 login: "",
                 surname: "",
                 pesel: "",
-                email: ""
+                email: "",
+                image : ""
             },
             loading: true,
             currentEdition: "",
@@ -61,11 +62,13 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                 window.location.replace("login");
             }
             var data = JSON.parse(xhr.responseText);
-            if (data.Image == "No image") data.Image = self.state.file; 
+
+            var newImage = self.state.file;
+            if (data.Image != "No image") newImage = data.Image;
 
             self.setState({
-                users: data.Login,
-                file: data.Image,                
+                users: data,
+                file: newImage,                
                 loading: false
             });
 
@@ -241,7 +244,8 @@ interface User {
     phone: string,
     email: string,
     password: string,
-    login: string
+    login: string,
+    image : string
 
 }
 
