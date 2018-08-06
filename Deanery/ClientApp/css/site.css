@@ -75,8 +75,8 @@
 
 .rightSidePanel{
     position:fixed;
-    right: 70px;
-    top : 0px;
+    right: 40px;
+    top : 10px;
 }
 
 #myCaptchaResponse{
@@ -90,8 +90,9 @@
 
 
 .settingButton {
-    font-size: 30px;
-    padding: 5px;
+    font-size: 25px;
+    padding-top:10px;
+    top:5px;
     
 }
 .customDropdown{
@@ -160,3 +161,17 @@
     min-width: 200px;
 }
 
+.miniImage {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 6px 11px -5px;
+}
+
+
+.customImage {
+    display: block;
+    width: 170px;
+    height: 185px;
+    top: 30px;
+}

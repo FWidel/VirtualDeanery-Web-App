@@ -69,7 +69,7 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
                     <label><b>Surname</b></label>
                     <input type="text" placeholder="Enter surname" className="form-control" id="surname" name="surname" required />
                     <label><b>Email</b></label>
-                    <input type="text" placeholder="Enter email" className="form-control" id="email" name="email" required />
+                    <input type="email" placeholder="Enter email" className="form-control" id="email" name="email" required />
                     <label><b>PESEL</b></label>
                     <input type="number" placeholder="Enter PESEL" className="form-control" id="pesel" name="pesel" required />
                     <label><b>Phone</b></label>

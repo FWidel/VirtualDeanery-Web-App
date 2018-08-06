@@ -44,19 +44,26 @@ export class Logout extends React.Component<{}, States> {
 
 
 
-        return this.state.loaded == true ? < div className="rightSidePanel" >
+        return this.state.loaded == true ? <div className="rightSidePanel" >
             <span><b>{this.state.login}</b></span>
 
-            <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="glyphicon glyphicon-cog settingButton"></span>
+            <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img alt="User Pic"
+                    src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+                    className="img-circle img-responsive miniImage" />
+                <span className="glyphicon glyphicon-triangle-bottom settingButton">   
+                </span>
+
             </a>
 
             <div className="dropdown-menu" >
                 <a className="dropdown-item customDropdown" href="/settings">Settings</a>
                 <a className="dropdown-item customDropdown" href="/user">My profile</a>
                 <a className="dropdown-item customDropdown" href="#">Something else here</a>
+                <button type="button" className="btn btn-primary" onClick={this.userLogout} name="logout" > Logout </button>
             </div>
-            <button type="button" className="btn btn-primary" onClick={this.userLogout} name="logout" > Logout </button>
+
         </div> : null
     }
 }
