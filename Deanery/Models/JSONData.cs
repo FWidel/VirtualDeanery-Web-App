@@ -8,6 +8,6 @@ namespace Deanery.Models
     public class JSONData
     {
         public string Property { get; set; }
-
+        public string Image { get; set; }
     }
 }
