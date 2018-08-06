@@ -42,8 +42,9 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         })
 
         console.log(event.target.files[0]);
-
-
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "api/user/get-image", true);
+        xhr.send(JSON.stringify({"image" : event.target.files[0]}));
     }
 
 
