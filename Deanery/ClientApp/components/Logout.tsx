@@ -28,9 +28,15 @@ export class Logout extends React.Component<{}, States> {
         request.onload = () => {
             if (request.responseText != "notFound") {
 
+                var parsedResponsetext = JSON.parse(request.responseText);
+                if (parsedResponsetext.Image == "No image") {
+                    parsedResponsetext.Image = "https://kazut.pl/wp-content/themes/Aether/library/img/default-image.jpg"
+                }
+{}
                 this.setState({
                     loaded: true,
-                    login: request.responseText
+                    login: parsedResponsetext.Login,
+                    image: parsedResponsetext.Image
                 });
 
 
@@ -50,7 +56,7 @@ export class Logout extends React.Component<{}, States> {
             <a className="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img alt="User Pic"
-                    src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+                    src={this.state.image}
                     className="img-circle img-responsive miniImage" />
                 <span className="glyphicon glyphicon-triangle-bottom settingButton">   
                 </span>
@@ -78,5 +84,6 @@ interface User {
 
 interface States {
     loaded: boolean,
-    login: string
+    login: string,
+    image? : string
 }
