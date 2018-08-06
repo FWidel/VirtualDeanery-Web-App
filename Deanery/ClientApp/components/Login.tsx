@@ -26,7 +26,7 @@ export class Login extends React.Component<RouteComponentProps<User>, { Message 
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         //formData.reset();
         request.onload = () => {
-            if (request.responseText != "Bad") {
+            if (request.responseText != "Invalid Login or Password") {
                 window.location.replace("/index");
             }
             else {

@@ -75,8 +75,8 @@
 
 .rightSidePanel{
     position:fixed;
-    right: 70px;
-    top : 0px;
+    right: 40px;
+    top : 10px;
 }
 
 #myCaptchaResponse{
@@ -90,8 +90,9 @@
 
 
 .settingButton {
-    font-size: 30px;
-    padding: 5px;
+    font-size: 25px;
+    padding-top:10px;
+    top:5px;
     
 }
 .customDropdown{
@@ -104,3 +105,73 @@
     padding:5px;
 }
 
+.user-row {
+    margin-bottom: 14px;
+}
+
+    .user-row:last-child {
+        margin-bottom: 0;
+    }
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+    .dropdown-user:hover {
+        cursor: pointer;
+    }
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+    .table-user-information > tbody > tr:first-child {
+        border-top: 0;
+    }
+
+
+    .table-user-information > tbody > tr > td {
+        border-top: 0;
+    }
+
+.toppad {
+    margin-top: 20px;
+}
+
+.userImage{
+    margin-top:20px;
+}
+
+
+.panel-heading{
+   padding-left:1%;
+}
+
+
+.glyphicon-pencil{
+    right: -30px;
+    padding: 2px 4px 2px 4px;
+    font-size:110%;
+}
+
+.currentUserLabel {
+    display: inline-block;
+    min-width: 200px;
+}
+
+.miniImage {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 6px 11px -5px;
+}
+
+
+.customImage {
+    display: block;
+    width: 170px;
+    height: 185px;
+    top: 30px;
+}

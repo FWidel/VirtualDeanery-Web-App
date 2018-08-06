@@ -6,16 +6,44 @@ import { Logout } from './Logout';
 var i = 0;
 
 export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchDataAboutUsers> {
+
+
     constructor() {
         super();
         this.state = {
-            users: [],
-            loading: true
+            users: {
+                id: 0,
+                firstname: "",
+                lastname: "",
+                phone: "",
+                password: "",
+                login: "",
+                surname: "",
+                pesel: "",
+                email: ""
+            },
+            loading: true,
+            currentEdition: "",
+            file: "https://kazut.pl/wp-content/themes/Aether/library/img/default-image.jpg"
         };
+        this.changeModalContext = this.changeModalContext.bind(this);
+        this.saveModalContext = this.saveModalContext.bind(this);
+        this.renderGuestTable = this.renderGuestTable.bind(this);
+        this.handleChange = this.handleChange.bind(this)
     }
 
     componentDidMount() {
         this.httpGetAsync();
+    }
+
+    handleChange(event: any) {
+        this.setState({
+            file: URL.createObjectURL(event.target.files[0])
+        })
+
+        console.log(event.target.files[0]);
+
+
     }
 
 
@@ -32,37 +60,59 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                 window.location.replace("login");
             }
             var data = JSON.parse(xhr.responseText);
-            console.log(xhr.responseText);
+            if (data.Image == "No image") data.Image = self.state.file; 
 
             self.setState({
-                users: data,
+                users: data.Login,
+                file: data.Image,                
                 loading: false
             });
 
         }
 
-        xhr.send({"XD" : 0});
+        xhr.send();
 
     }
 
 
 
-    //      .then(response =>  response.json() as Promise<User[]>)
+    private changeModalContext(event: any) {
 
+        var oldValue = event.target.parentElement.firstChild.innerHTML;
 
-    private static deleteGuest(z: any) {
+        var element = document.getElementById("propertyToChange") as HTMLInputElement;
+        element.setAttribute("placeholder", oldValue);
+        element.value = "";
 
-        var id = z.target.id;
-        console.log(id);
+        this.setState({
+            currentEdition: event.target.id
+        })
+
+    }
+
+    private saveModalContext(event: any) {
+        var value = document.getElementById("propertyToChange") as HTMLInputElement;
+
         var request = new XMLHttpRequest();
-        request.open('POST', '/api/user/delete', true);
+
+        request.open('POST', '/api/user/change-' + this.state.currentEdition, true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send(parseInt(id));
-        z.target.parentElement.parentNode.remove();
+        request.send(JSON.stringify({ "Property": value.value }));
+
+        request.onreadystatechange = () => {
+
+        }
 
         request.onload = () => {
-            alert(request.responseText);
+
+            this.httpGetAsync();
         }
+
+
+
+
+        this.httpGetAsync();
+
     }
 
 
@@ -70,45 +120,114 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
     public render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : CurrentUser.renderGuestTable(this.state.users);
+            : this.renderGuestTable(this.state.users);
 
         return <div>
-            <h1>Your information</h1>
+            <h3>Your information</h3>
             {contents}
             <Logout />
         </div>;
     }
 
-    private static renderGuestTable(users: User[]) {
-        return <table className='table'>
-            <thead>
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Surname</th>
-                    <th>Pesel</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Login</th>
-                    <th>Password</th>
-                </tr>
-            </thead>
-            <tbody>
-                {users.map(user =>
-                    <tr key={user.id} >
-                        <td><input type="text" name="xD" placeholder={user.firstname} /></td>
-                        <td>{user.lastname}</td>
-                        <td>{user.surname}</td>
-                        <td>{user.pesel}</td>
-                        <td>{user.phone}</td>
-                        <td>{user.email}</td>
-                        <td>{user.login}</td>
-                        <td>{user.password}</td>
-                        
-                    </tr>
-                )}
-            </tbody>
-        </table>;
+
+
+    private renderGuestTable(users: User) {
+        return <div>
+            {
+                <div className="panel panel-info" >
+                    <div className="panel-heading">
+                        <h3 className="panel-title"><b>{this.state.users.login}</b></h3>
+                    </div>
+                    <div className="col-md-2 col-lg-2 userImage">                  
+                        <label htmlFor="file-upload" className="custom-file-upload">                          
+                            <img alt="User Pic" src={this.state.file} className="img-circle img-responsive customImage" />
+                        </label>
+                        <input name="file-upload" id="file-upload" className="hidden" type="file" onChange={this.handleChange} />
+                    </div>
+                    <div className=" col-md-9 col-lg-9 ">
+                        <table className="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>Firstname:</td>
+                                    <td>
+                                        <span className="currentUserLabel">{this.state.users.firstname}</span>
+                                        <button data-toggle="modal" onClick={this.changeModalContext}
+                                            data-target="#exampleModal" id="firstname" className="btn glyphicon glyphicon-pencil"></button>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Lastname:</td>
+                                    <td>
+                                        <span className="currentUserLabel">{this.state.users.lastname}</span>
+                                        <button data-toggle="modal" onClick={this.changeModalContext}
+                                            data-target="#exampleModal" id="lastname" className="btn glyphicon glyphicon-pencil"></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Surname</td>
+                                    <td>
+                                        <span className="currentUserLabel">{this.state.users.surname}</span>
+                                        <button data-toggle="modal" onClick={this.changeModalContext}
+                                            data-target="#exampleModal" id="surname" className="btn glyphicon glyphicon-pencil"></button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Pesel</td>
+                                    <td>
+                                        <span className="currentUserLabel">{this.state.users.pesel}</span>
+                                        <button data-toggle="modal" onClick={this.changeModalContext}
+                                            data-target="#exampleModal" id="pesel" className="btn glyphicon glyphicon-pencil"></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>
+                                        <span className="currentUserLabel">{this.state.users.phone}</span>
+                                        <button data-toggle="modal" onClick={this.changeModalContext}
+                                            data-target="#exampleModal" id="phone" className="btn glyphicon glyphicon-pencil"></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>
+                                        <span className="currentUserLabel">{this.state.users.email}</span>
+                                        <button data-toggle="modal" onClick={this.changeModalContext}
+                                            data-target="#exampleModal" id="email" className="btn glyphicon glyphicon-pencil"></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div className="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Editing your account information</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form>
+                                        <div className="modal-body">
+                                            <input className="form-control" autoComplete="off" name="toChange" id="propertyToChange" placeholder="xD" />
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" name="modalButton" data-dismiss="modal"
+                                                onClick={this.saveModalContext} className="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>;
+
     }
 }
 
@@ -126,8 +245,10 @@ interface User {
 }
 
 interface FetchDataAboutUsers {
-    users: User[],
-    loading: boolean
+    users: User,
+    loading: boolean,
+    currentEdition: string,
+    file?: string
 }
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Deanery.Entities;
+using Deanery.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,8 +57,9 @@ namespace Deanery.Controllers
 
         [Route("api/user/change-firstname")]
         [HttpPost]
-        public IActionResult ChangeName([FromBody]string Surname)
+        public IActionResult ChangeName([FromBody]JSONData property)
         {
+
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
 
@@ -67,7 +69,7 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student ord in query)
             {
-                ord.Surname = Surname;
+                ord.Firstname = property.Property;
                 status = true;
 
             }
@@ -78,45 +80,15 @@ namespace Deanery.Controllers
                 return Ok("Error");
         }
 
-
-        [Route("api/user/change-email")]
-        [HttpPost]
-        public IActionResult ChangeEmail([FromBody]string FirstName)
-        {
-            bool status = false;
-            var login = HttpContext.Session.GetString("Login");
-            Regex EmailRegex = new Regex(@"^[a-z][a-z0-9_-]*@[a-z0-9]*\.[a-z]{2,3}$");
-          
-
-            if (!EmailRegex.IsMatch())
-                return Ok("Invalid email");
-         
-
-            var query =
-                        from Onestudent in db.Student
-                        where Onestudent.Login == login
-                        select Onestudent;
-            foreach (Student ord in query)
-            {
-                ord.Email = ;
-                status = true;
-
-            }
-            db.SaveChanges();
-            if (status)
-                return Ok("Success");
-            else
-                return Ok("Error");
-        }
 
         [Route("api/user/change-pesel")]
-        [HttpGet]
-        public IActionResult ChangePESEL([FromQuery]string PESEL)
+        [HttpPost]
+        public IActionResult ChangePESEL([FromBody]JSONData property)
         {
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
             Regex PeselRegex = new Regex(@"[0-9]{11}");
-            if (PeselRegex.IsMatch(PESEL))
+            if (PeselRegex.IsMatch(property.Property))
             {              
                 var query =
                             from Onestudent in db.Student
@@ -124,7 +96,7 @@ namespace Deanery.Controllers
                             select Onestudent;
                 foreach (Student ord in query)
                 {
-                    ord.Pesel = PESEL;
+                    ord.Pesel = property.Property;
                     status = true;
                 }
                 db.SaveChanges();
@@ -136,14 +108,14 @@ namespace Deanery.Controllers
         }
 
         [Route("api/user/change-phone")]
-        [HttpGet]
-        public IActionResult ChangePhone([FromQuery]string Phone)
+        [HttpPost]
+        public IActionResult ChangePhone([FromBody]JSONData property)
         {
 
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
             Regex PhoneNumberRegex = new Regex(@"[0-9]");
-            if (PhoneNumberRegex.IsMatch(Phone))
+            if (PhoneNumberRegex.IsMatch(property.Property))
             {
                 var query =
                             from Onestudent in db.Student
@@ -151,7 +123,7 @@ namespace Deanery.Controllers
                             select Onestudent;
                 foreach (Student ord in query)
                 {
-                    ord.Phone = Phone;
+                    ord.Phone = property.Property;
                     status = true;
                 }
                 db.SaveChanges();
@@ -162,7 +134,58 @@ namespace Deanery.Controllers
                 return Ok("Invalid Phone");
 
         }
+        [Route("api/user/change-email")]
+        [HttpPost]
+        public IActionResult ChangeEmail([FromBody]JSONData property)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+            Regex EmailRegex = new Regex(@"^[a-z][a-z0-9_-]*@[a-z0-9]*\.[a-z]{2,3}$");
 
+
+            if (!EmailRegex.IsMatch(property.Property))
+                return Ok("Invalid email");
+
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student ord in query)
+            {
+                ord.Email = property.Property;
+                status = true;
+
+            }
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Error");
+        }
+        [Route("api/user/change-surname")]
+        [HttpPost]
+        public IActionResult ChangeSurname([FromBody]JSONData property)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student ord in query)
+            {
+                ord.Surname = property.Property;
+                status = true;
+
+            }
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Error");
+        }
         [Route("api/user/get-image")]
         [HttpPost]
         public IActionResult getImage([FromBody] byte[] image)
