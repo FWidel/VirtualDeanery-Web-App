@@ -29,14 +29,14 @@ export class Logout extends React.Component<{}, States> {
             if (request.responseText != "notFound") {
 
                 var parsedResponsetext = JSON.parse(request.responseText);
-                if (parsedResponsetext.Image == "No image") {
-                    parsedResponsetext.Image = "https://kazut.pl/wp-content/themes/Aether/library/img/default-image.jpg"
+                if (parsedResponsetext.image == "No image") {
+                    parsedResponsetext.image = "https://kazut.pl/wp-content/themes/Aether/library/img/default-image.jpg"
                 }
 {}
                 this.setState({
                     loaded: true,
-                    login: parsedResponsetext.Login,
-                    image: parsedResponsetext.Image
+                    login: parsedResponsetext.login,
+                    image: parsedResponsetext.image
                 });
 
 

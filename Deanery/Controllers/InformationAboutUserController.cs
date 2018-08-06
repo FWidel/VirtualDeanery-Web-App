@@ -41,7 +41,7 @@ namespace Deanery.Controllers
 
         [Route("api/user/get-current-user")]
         [HttpPost]
-        public IActionResult Login(JSONData prop)
+        public IActionResult Login(JSONLoginImage prop)
         {
             var login = HttpContext.Session.GetString("Login");
 
@@ -51,11 +51,14 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student Onestudent in query)
             {
-                prop.Property = Onestudent.Login;
-                prop.Image = Encoding.ASCII.GetString(Onestudent.Image);
-
+                prop.Login = Onestudent.Login;
+                if (Onestudent.Image != null)
+                    prop.Image = Encoding.ASCII.GetString(Onestudent.Image);               
+                else
+                    prop.Image = "No image";
                 return Ok(prop);
             }
+
             return Ok("notFound");
         }
 
@@ -192,7 +195,7 @@ namespace Deanery.Controllers
         }
         [Route("api/user/get-image")]
         [HttpPost]
-        public IActionResult getImage([FromBody]JSONData property)
+        public IActionResult getImage([FromBody]JSONLoginImage property)
         {
 
          
@@ -204,7 +207,10 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student Onestudent in query)
             {
-                Onestudent.Image = Encoding.ASCII.GetBytes(property.Image);
+                if (property.Image != null)
+                    property.Image = Encoding.ASCII.GetString(Onestudent.Image);
+                else
+                    property.Image = "No image";
                 status = true;
             }
             db.SaveChanges();

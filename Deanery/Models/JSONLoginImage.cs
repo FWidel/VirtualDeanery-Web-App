@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Deanery.Models
 {
-    public class JSONData
+    public class JSONLoginImage
     {
-        public string Property { get; set; }
-        
+        public string Login { get; set; }
+        public string Image { get; set; }
     }
 }
