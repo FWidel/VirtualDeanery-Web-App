@@ -20,8 +20,13 @@ namespace Deanery.Controllers
                         from Onestudent in db.Student
                         where Onestudent.Login == login
                         select Onestudent;
-            foreach (Student ord in query)           
-                return ord;
+          
+            foreach (Student ord in query)
+                {
+                
+                    return ord;
+                }
+                
             
             return null;
         }

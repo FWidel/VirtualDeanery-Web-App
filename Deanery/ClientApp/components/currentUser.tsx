@@ -20,7 +20,8 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                 login: "",
                 surname: "",
                 pesel: "",
-                email: ""
+                email: "",
+                image : ""
             },
             loading: true,
             currentEdition: "",
@@ -36,14 +37,45 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         this.httpGetAsync();
     }
 
+
+
     handleChange(event: any) {
+       
+            
+        
+        var newImage = event.target.files[0];
+        console.log(typeof newImage)
         this.setState({
-            file: URL.createObjectURL(event.target.files[0])
+            file: URL.createObjectURL(newImage)
         })
 
-        console.log(event.target.files[0]);
+        var p;
+        var canvas = document.createElement("canvas");
+        var img1 = document.createElement("img"); 
+        function getBase64Image() {
+            p = newImage;
+            img1.setAttribute('src', p);
+            canvas.width = img1.width;
+            canvas.height = img1.height;
+            var ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+            ctx.drawImage(img1, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+            alert("from getbase64 function" + dataURL);
+            return dataURL;
+        } 
+
+        var createdImage = getBase64Image();
 
 
+
+        //console.log(event.target.files[0].blob);
+        var xhr = new XMLHttpRequest();
+        //var formData = new FormData();
+        //formData.append("image", newImage);
+        xhr.open("POST", "api/user/get-image", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send(JSON.stringify({ "property": createdImage }));
     }
 
 
@@ -60,11 +92,13 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                 window.location.replace("login");
             }
             var data = JSON.parse(xhr.responseText);
-            if (data.Image == "No image") data.Image = self.state.file; 
+
+            var newImage = self.state.file;
+            if (data.Image != "No image") newImage = data.Image;
 
             self.setState({
-                users: data.Login,
-                file: data.Image,                
+                users: data,
+                file: newImage,                
                 loading: false
             });
 
@@ -104,7 +138,7 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         }
 
         request.onload = () => {
-
+            console.log(request.responseText);
             this.httpGetAsync();
         }
 
@@ -240,7 +274,8 @@ interface User {
     phone: string,
     email: string,
     password: string,
-    login: string
+    login: string,
+    image : string
 
 }
 
