@@ -6,18 +6,36 @@ namespace Deanery.Entities
 {
     public partial class DbDeaneryContext : DbContext
     {
+        public virtual DbSet<Course> Course { get; set; }
         public virtual DbSet<Student> Student { get; set; }
+        public virtual DbSet<StudentCourses> StudentCourses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=192.168.0.87,49170;Initial Catalog=DbDeanery;Persist Security Info=True;User ID=franek;Password=franek");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Course>(entity =>
+            {
+                entity.Property(e => e.Desciption)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Difflculty)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.Property(e => e.Email)
@@ -58,6 +76,21 @@ namespace Deanery.Entities
                     .IsRequired()
                     .HasMaxLength(30)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<StudentCourses>(entity =>
+            {
+                entity.HasOne(d => d.Course)
+                    .WithMany(p => p.StudentCourses)
+                    .HasForeignKey(d => d.CourseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__StudentCo__Cours__6D0D32F4");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.StudentCourses)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__StudentCo__Stude__6C190EBB");
             });
         }
     }

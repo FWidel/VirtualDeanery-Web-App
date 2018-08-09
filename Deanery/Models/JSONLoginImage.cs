@@ -9,6 +9,6 @@ namespace Deanery.Models
     {
         public string Login { get; set; }
         public string Image { get; set; }
-        public string filename { get; set; }
+        public string Property { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace Deanery.Controllers
             {
                 prop.Login = Onestudent.Login;
                 if (Onestudent.Image != null)
-                    prop.Image = Encoding.ASCII.GetString(Onestudent.Image);               
+                    prop.Property = Encoding.ASCII.GetString(Onestudent.Image);               
                 else
                     prop.Image = "No image";
                 return Ok(prop);
@@ -197,7 +197,7 @@ namespace Deanery.Controllers
         [HttpPost]
         public IActionResult getImage([FromBody]JSONLoginImage property)
         {
-
+           
 
             var login = HttpContext.Session.GetString("Login");
             bool status = false;
@@ -208,7 +208,7 @@ namespace Deanery.Controllers
             foreach (Student Onestudent in query)
             {
     
-                    Onestudent.Image = Encoding.ASCII.GetBytes(property.Image);
+                    Onestudent.Image = Encoding.ASCII.GetBytes(property.Property);
                 
                 status = true;
             }

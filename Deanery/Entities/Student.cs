@@ -5,6 +5,11 @@ namespace Deanery.Entities
 {
     public partial class Student
     {
+        public Student()
+        {
+            StudentCourses = new HashSet<StudentCourses>();
+        }
+
         public int Id { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -15,5 +20,7 @@ namespace Deanery.Entities
         public string Password { get; set; }
         public string Login { get; set; }
         public byte[] Image { get; set; }
+
+        public ICollection<StudentCourses> StudentCourses { get; set; }
     }
 }
