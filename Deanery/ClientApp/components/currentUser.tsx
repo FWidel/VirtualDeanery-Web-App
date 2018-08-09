@@ -38,14 +38,21 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
     }
 
     handleChange(event: any) {
+        var newImage = event.target.files[0];
         this.setState({
-            file: URL.createObjectURL(event.target.files[0])
+            file: URL.createObjectURL(newImage)
         })
+
+
 
         console.log(event.target.files[0].blob);
         var xhr = new XMLHttpRequest();
+        var formData = new FormData();
+        formData.append("image", newImage);
         xhr.open("POST", "api/user/get-image", true);
-        xhr.send(JSON.stringify({"image" : event.target.files[0]}));
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send(formData);
     }
 
 
