@@ -198,7 +198,7 @@ namespace Deanery.Controllers
         public IActionResult getImage([FromBody]JSONLoginImage property)
         {
 
-         
+
             var login = HttpContext.Session.GetString("Login");
             bool status = false;
             var query =
@@ -207,15 +207,14 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student Onestudent in query)
             {
-                if (property.Image != null)
-                    property.Image = Encoding.ASCII.GetString(Onestudent.Image);
-                else
-                    property.Image = "No image";
+    
+                    Onestudent.Image = Encoding.ASCII.GetBytes(property.Image);
+                
                 status = true;
             }
             db.SaveChanges();
             if (status)
-            return Ok("Success");
+                return Ok("Success");
             else
                 return Ok("notFound");
 

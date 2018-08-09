@@ -115,7 +115,7 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         }
 
         request.onload = () => {
-
+            console.log(request.responseText);
             this.httpGetAsync();
         }
 
