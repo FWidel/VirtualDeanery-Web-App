@@ -37,22 +37,45 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         this.httpGetAsync();
     }
 
+
+
     handleChange(event: any) {
+       
+            
+        
         var newImage = event.target.files[0];
+        console.log(typeof newImage)
         this.setState({
             file: URL.createObjectURL(newImage)
         })
 
+        var p;
+        var canvas = document.createElement("canvas");
+        var img1 = document.createElement("img"); 
+        function getBase64Image() {
+            p = newImage;
+            img1.setAttribute('src', p);
+            canvas.width = img1.width;
+            canvas.height = img1.height;
+            var ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+            ctx.drawImage(img1, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+            alert("from getbase64 function" + dataURL);
+            return dataURL;
+        } 
+
+        var createdImage = getBase64Image();
 
 
-        console.log(event.target.files[0].blob);
+
+        //console.log(event.target.files[0].blob);
         var xhr = new XMLHttpRequest();
-        var formData = new FormData();
-        formData.append("image", newImage);
+        //var formData = new FormData();
+        //formData.append("image", newImage);
         xhr.open("POST", "api/user/get-image", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Accept", "application/json");
-        xhr.send(formData);
+        xhr.send(JSON.stringify({ "property": createdImage }));
     }
 
 
