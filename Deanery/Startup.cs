@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace Deanery
 {
     public class Startup
@@ -17,6 +16,7 @@ namespace Deanery
         {
             Configuration = configuration;
         }
+
 
         public IConfiguration Configuration { get; }
 
@@ -33,6 +33,9 @@ namespace Deanery
             });
 
             services.AddMvc();
+            
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +57,7 @@ namespace Deanery
 
             app.UseStaticFiles();
             app.UseSession();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

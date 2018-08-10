@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Deanery.Entities;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Deanery.Controllers
@@ -12,7 +13,7 @@ namespace Deanery.Controllers
     {
         public IActionResult Index()
         {
-            
+
             return View();
         }
 
@@ -21,5 +22,13 @@ namespace Deanery.Controllers
             ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
             return View();
         }
+        //private void SendMessage(string message)
+        //{
+        //    GlobalHost
+        //   .ConnectionManager
+        //   .GetHubContext<NotificationHub>().Clients.sendMessage(
+        // message);
+        //}
+
     }
 }
