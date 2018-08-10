@@ -219,5 +219,19 @@ namespace Deanery.Controllers
                 return Ok("notFound");
 
         }
+        [Route("api/user/check-authorization")]
+        [HttpPost]
+        public IActionResult checkAuthorization()
+        {
+
+
+            var login = HttpContext.Session.GetString("Login");
+           
+            if (login != null)
+                return Ok("true");
+            else
+                return Ok("false");
+
+        }
     }
 }
