@@ -108,7 +108,7 @@ namespace Deanery.Controllers
                         from oneStudentCourse in db.StudentCourse
                         where oneStudentCourse.StudentId == studentcourse.StudentId && oneStudentCourse.CourseId == studentcourse.CourseId
                         select oneStudentCourse;
-
+           var ID= queryStudentCourse.Select(p => p.Id);
             foreach (StudentCourse onestudentcourse in queryStudentCourse)
             {
                 studentcourse.Id = onestudentcourse.Id;
