@@ -25,37 +25,44 @@
         height: 100%;
         width: calc(15% - 20px);
     }
-    .main-nav .navbar {
-        border-radius: 0px;
-        border-width: 0px;
-        height: 100%;
-    }
-    .main-nav .navbar-header {
-        float: none;
-    }
-    .main-nav .navbar-collapse {
-        border-top: 1px solid #444;
-        padding: 0px;
-    }
-    .main-nav .navbar ul {
-        float: none;
-    }
-    .main-nav .navbar li {
-        float: none;
-        font-size: 15px;
-        margin: 6px;
-    }
-    .main-nav .navbar li a {
-        padding: 10px 16px;
-        border-radius: 4px;
-    }
-    .main-nav .navbar a {
-        /* If a menu item's text is too long, truncate it */
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+
+        .main-nav .navbar {
+            border-radius: 0px;
+            border-width: 0px;
+            height: 100%;
+        }
+
+        .main-nav .navbar-header {
+            float: none;
+        }
+
+        .main-nav .navbar-collapse {
+            border-top: 1px solid #444;
+            padding: 0px;
+        }
+
+        .main-nav .navbar ul {
+            float: none;
+        }
+
+        .main-nav .navbar li {
+            float: none;
+            font-size: 15px;
+            margin: 6px;
+        }
+
+            .main-nav .navbar li a {
+                padding: 10px 16px;
+                border-radius: 4px;
+            }
+
+        .main-nav .navbar a {
+            /* If a menu item's text is too long, truncate it */
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 }
 
 
@@ -69,40 +76,40 @@
     background: #dadada;
 }
 
-.logoutButton{
-    margin-top:10px;
+.logoutButton {
+    margin-top: 10px;
 }
 
-.rightSidePanel{
-    position:fixed;
+.rightSidePanel {
+    position: fixed;
     right: 40px;
-    top : 10px;
+    top: 10px;
 }
 
-#myCaptchaResponse{
-    visibility:hidden;
+#myCaptchaResponse {
+    visibility: hidden;
 }
 
 
-.container{
-    width:500px;
+.container {
+    width: 500px;
 }
 
 
 .settingButton {
     font-size: 25px;
-    padding-top:10px;
-    top:5px;
-    
+    padding-top: 10px;
+    top: 5px;
 }
-.customDropdown{
-    display:block;
-    text-decoration : none;
+
+.customDropdown {
+    display: block;
+    text-decoration: none;
     color: red;
 }
 
-.dropdown-menu{
-    padding:5px;
+.dropdown-menu {
+    padding: 5px;
 }
 
 .user-row {
@@ -140,20 +147,20 @@
     margin-top: 20px;
 }
 
-.userImage{
-    margin-top:20px;
+.userImage {
+    margin-top: 20px;
 }
 
 
-.panel-heading{
-   padding-left:1%;
+.panel-heading {
+    padding-left: 1%;
 }
 
 
-.glyphicon-pencil{
+.glyphicon-pencil {
     right: -30px;
     padding: 2px 4px 2px 4px;
-    font-size:110%;
+    font-size: 110%;
 }
 
 .currentUserLabel {
@@ -175,3 +182,20 @@
     height: 185px;
     top: 30px;
 }
+
+
+.nav {
+    background-color: white;
+}
+
+    .nav li {
+        background-color: #dadada;
+        box-shadow: 0px 0px 0px 2px grey;
+        border-radius: 2px;
+    }
+
+        .nav li a.active {
+           
+           font-size:110%;
+           text-decoration:wavy;
+        }
