@@ -16,7 +16,6 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                 firstname: "",
                 lastname: "",
                 phone: "",
-                password: "",
                 login: "",
                 surname: "",
                 pesel: "",
@@ -85,14 +84,15 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
             if (xhr.responseText == "Unauthorized session") {
                 window.location.replace("login");
             }
-            var data = JSON.parse(JSON.stringify(xhr.responseText));
 
-            var newImage = self.state.file;
-            if (data.Image != "No image") newImage = data.Image;
+            var data = JSON.parse(xhr.responseText);
+
+           
+            
 
             self.setState({
                 users: data,
-                file: newImage,                
+                file: data.image,                
                 loading: false
             });
 
@@ -272,7 +272,6 @@ interface User {
     pesel: string,
     phone: string,
     email: string,
-    password: string,
     login: string,
     image : string
 
