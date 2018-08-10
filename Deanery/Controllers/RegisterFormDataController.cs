@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Deanery.Controllers
 {
-    public class StudentData : Controller
+    public class RegisterFormDataController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
 
