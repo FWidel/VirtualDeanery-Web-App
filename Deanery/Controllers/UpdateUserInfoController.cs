@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Deanery.Controllers
 {
-    public class UpdateInformationAboutUserController : Controller
+    public class UpdateUserInfoController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
         [Route("api/user/change-password")]

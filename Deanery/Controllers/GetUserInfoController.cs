@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Deanery.Controllers
 {
-    public class GetInformationAboutUserController : Controller
+    public class GetUserInfoController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
        
