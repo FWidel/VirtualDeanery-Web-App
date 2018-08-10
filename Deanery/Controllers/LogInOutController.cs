@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Deanery.Controllers
 {
-    public class LoginController : Controller
+    public class LogInOutController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
         [Route("api/user/login")]
@@ -29,6 +29,16 @@ namespace Deanery.Controllers
             }
             else
                 return Ok("Invalid Login or Password");
+        }
+
+        [HttpPost]
+        [Route("api/user/logout")]
+        public IActionResult LogoutMethod()
+        {
+
+            HttpContext.Session.Remove("Login");
+
+            return Ok(HttpContext.Session.GetString("Login"));
         }
 
 
