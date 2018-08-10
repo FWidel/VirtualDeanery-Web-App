@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Owin;
-using Microsoft.Owin;
 namespace Deanery
 {
     public class Startup
@@ -41,7 +39,7 @@ namespace Deanery
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IAppBuilder zz)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -59,7 +57,7 @@ namespace Deanery
 
             app.UseStaticFiles();
             app.UseSession();
-            zz.MapSignalR();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -13,24 +13,21 @@ namespace Deanery.Controllers
 
         [Route("api/add/course")]
         [HttpPost]
-        public IActionResult DeleteStudentData([FromBody]Course OneCourse)
+        public IActionResult CreateNewCourse([FromBody]Course course)
         {
+           
+
             try
             {
-                db.Course.Add(OneCourse);
+                db.Course.Add(course);
                 db.SaveChanges();
-                return Ok("Successfully registered");
+                return Ok("Successfully added course");
             }
             catch (Exception ex)
             {
                 return Ok(ex.Message);
             }
-            db.SaveChanges();
-
-            return Ok("Successfully deleted from database");
 
         }
-
-
     }
 }
