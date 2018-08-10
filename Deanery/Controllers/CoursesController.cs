@@ -114,7 +114,7 @@ namespace Deanery.Controllers
                 studentcourse.Id = onestudentcourse.Id;
 
             }
-
+            
             return studentcourse;
         }
     }
