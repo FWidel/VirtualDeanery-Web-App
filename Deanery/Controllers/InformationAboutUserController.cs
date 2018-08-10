@@ -53,7 +53,7 @@ namespace Deanery.Controllers
             {
                 prop.Login = Onestudent.Login;
                 if (Onestudent.Image != null)
-                    prop.Property = Encoding.ASCII.GetString(Onestudent.Image);               
+                    prop.Image = Encoding.ASCII.GetString(Onestudent.Image);               
                 else
                     prop.Image = "No image";
                 return Ok(prop);
@@ -208,7 +208,7 @@ namespace Deanery.Controllers
             foreach (Student Onestudent in query)
             {
     
-                    Onestudent.Image = Encoding.ASCII.GetBytes(property.Property);
+                    Onestudent.Image = Encoding.ASCII.GetBytes(property.Image);
                 
                 status = true;
             }

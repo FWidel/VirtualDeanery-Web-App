@@ -8,19 +8,34 @@ namespace Deanery.Entities
     {
         public virtual DbSet<Course> Course { get; set; }
         public virtual DbSet<Student> Student { get; set; }
-        public virtual DbSet<StudentCourses> StudentCourses { get; set; }
+        public virtual DbSet<StudentCourse> StudentCourse { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=192.168.0.87,49170;Initial Catalog=DbDeanery;Persist Security Info=True;User ID=franek;Password=franek");
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-  
+            modelBuilder.Entity<Course>(entity =>
+            {
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.Difficulty)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
 
             modelBuilder.Entity<Student>(entity =>
             {
@@ -63,8 +78,6 @@ namespace Deanery.Entities
                     .HasMaxLength(30)
                     .IsUnicode(false);
             });
-
-     
         }
     }
 }
