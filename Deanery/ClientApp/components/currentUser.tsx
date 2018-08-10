@@ -4,7 +4,7 @@ import 'isomorphic-fetch';
 import { Logout } from './Logout';
 
 var i = 0;
-
+ 
 export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchDataAboutUsers> {
 
 
@@ -37,45 +37,39 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
         this.httpGetAsync();
     }
 
-
+  
 
     handleChange(event: any) {
        
             
-        
+
         var newImage = event.target.files[0];
-        console.log(typeof newImage)
         this.setState({
             file: URL.createObjectURL(newImage)
         })
 
-        var p;
-        var canvas = document.createElement("canvas");
-        var img1 = document.createElement("img"); 
-        function getBase64Image() {
-            p = newImage;
-            img1.setAttribute('src', p);
-            canvas.width = img1.width;
-            canvas.height = img1.height;
-            var ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-            ctx.drawImage(img1, 0, 0);
-            var dataURL = canvas.toDataURL("image/png");
-            alert("from getbase64 function" + dataURL);
-            return dataURL;
-        } 
+        var myReader: FileReader = new FileReader();
+      
+        myReader.onloadend = (e) => {
 
-        var createdImage = getBase64Image();
+           
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "api/user/get-image", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.send(JSON.stringify({ "image": myReader.result }));
+        }
+        myReader.readAsDataURL(newImage);
+       // console.log(a);
 
-
-
-        //console.log(event.target.files[0].blob);
-        var xhr = new XMLHttpRequest();
+        
+        //var xhr = new XMLHttpRequest();
         //var formData = new FormData();
         //formData.append("image", newImage);
-        xhr.open("POST", "api/user/get-image", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader("Accept", "application/json");
-        xhr.send(JSON.stringify({ "property": createdImage }));
+        //xhr.open("POST", "api/user/get-image", true);
+    
+        //xhr.send({ "image" : newImage });
+
     }
 
 
@@ -91,7 +85,7 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
             if (xhr.responseText == "Unauthorized session") {
                 window.location.replace("login");
             }
-            var data = JSON.parse(xhr.responseText);
+            var data = JSON.parse(JSON.stringify(xhr.responseText));
 
             var newImage = self.state.file;
             if (data.Image != "No image") newImage = data.Image;
@@ -172,11 +166,16 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                     <div className="panel-heading">
                         <h3 className="panel-title"><b>{this.state.users.login}</b></h3>
                     </div>
-                    <div className="col-md-2 col-lg-2 userImage">                  
-                        <label htmlFor="file-upload" className="custom-file-upload">                          
-                            <img alt="User Pic" src={this.state.file} className="img-circle img-responsive customImage" />
+                    <div className="col-md-2 col-lg-2 userImage"> 
+
+                        <form action="api/user/get-image" method="post">
+                        <label htmlFor="photo" className="custom-file-upload">                          
+                            <img alt="User Pic" id="image" src={this.state.file} className="img-circle img-responsive customImage" />
                         </label>
-                        <input name="file-upload" id="file-upload" className="hidden" type="file" onChange={this.handleChange} />
+                            <input name="photo" id="photo" className="hidden" type="file" onChange={this.handleChange} />
+                        </form>
+            
+                         
                     </div>
                     <div className=" col-md-9 col-lg-9 ">
                         <table className="table table-user-information">
