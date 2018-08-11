@@ -63,7 +63,6 @@ namespace Deanery.Controllers
         public IActionResult RemoveStudentCourse([FromQuery]string NameCourse)
         {
             CourseStudent studentcourse = ExtractedStudentCourse(NameCourse);
-
             try
             {
                 db.CourseStudent.Remove(studentcourse);
@@ -104,19 +103,17 @@ namespace Deanery.Controllers
             {
                 studentcourse.CourseId = onecourse.Id;
 
-            }
-            
-            var queryStudentCourse =
-                        from oneStudentCourse in db.CourseStudent
-                        where oneStudentCourse.StudentId == studentcourse.StudentId && oneStudentCourse.CourseId == studentcourse.CourseId
-                        select oneStudentCourse;
-
-            foreach (CourseStudent onestudentcourse in queryStudentCourse)
-            {
-                studentcourse.Id = onestudentcourse.Id;
 
             }
            
+            var queryStudentCourse =
+                       from oneStudentCourse in db.CourseStudent
+                       where oneStudentCourse.StudentId == studentcourse.StudentId && oneStudentCourse.CourseId == studentcourse.CourseId
+                       select oneStudentCourse;
+
+          
+
+            var list = queryStudentCourse.Select(s => new { ID = s.Id }).ToList();
             return studentcourse;
         }
     }
