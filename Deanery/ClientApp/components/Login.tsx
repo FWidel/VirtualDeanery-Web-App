@@ -47,26 +47,20 @@ export class Login extends React.Component<RouteComponentProps<User>, { Message 
     public render() {
         return <div>
             <form className="form-group" onSubmit={this.userRegister} action="#">
-                <div className="container">
-                    <hr />
+                <div className="container login-form">
                     {this.state.Message != "" ? <div className="alert alert-danger">
                         <strong>Warning!</strong> {this.state.Message}
                     </div> : <span/>}
-                    <h1>Login</h1>
-                    <hr />
-                    <label><b>Login</b></label>
-                    <input type="text" placeholder="login" className="form-control" id="login" name="login" required />
-                    <label><b>Password</b></label>
-                    <input type="password" placeholder="password" className="form-control" id="password" name="password" required />
-
-                    <hr />
-                    <button type="submit" className="btn btn-default" >Log in</button>
+                    <h3 className="text-center">Welcome</h3>
+                    <p className="text-center">Please enter your login and password</p>
+                    <input type="text" placeholder="Login" className="form-control" id="login" name="login" required />
+                    <input type="password" placeholder="Password" className="form-control" id="password" name="password" required />
+                    <button type="submit" className="btn btn-primary" >Log in</button>
                 </div>
             </form>
             <div className="container signin">
-                <p>Dont have account?  <a href="/register">Sign up</a>.</p>
+                <a href="/register">Register</a> <a href="/recover">Forgot Password</a>
             </div>
-            <Logout />
         </div>;
     }
 }
