@@ -106,18 +106,21 @@ namespace Deanery.Controllers
 
             }
             
-            var queryStudentCourse =
-                        from oneStudentCourse in db.CourseStudent
-                        where oneStudentCourse.StudentId == studentcourse.StudentId && oneStudentCourse.CourseId == studentcourse.CourseId
-                        select oneStudentCourse;
+            
 
-            foreach (CourseStudent onestudentcourse in queryStudentCourse)
-            {
-                studentcourse.Id = onestudentcourse.Id;
+                var queryStudentCourse =
+                            from oneStudentCourse in db.CourseStudent
+                            where oneStudentCourse.StudentId == studentcourse.StudentId && oneStudentCourse.CourseId == studentcourse.CourseId
+                            select  oneStudentCourse.Id;
 
-            }
-           
-            return studentcourse;
+                foreach (int onestudentcourse in queryStudentCourse)
+                {
+                    studentcourse.Id = onestudentcourse;
+
+                }
+            
+
+            return studentcourse; 
         }
     }
 }
