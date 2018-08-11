@@ -14,8 +14,8 @@ namespace Deanery.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
+
+                optionsBuilder.UseSqlServer(@"Data Source=192.168.0.87,49170;Initial Catalog=DbDeanery;Persist Security Info=True;User ID=franek;Password=franek");
             }
         }
 
