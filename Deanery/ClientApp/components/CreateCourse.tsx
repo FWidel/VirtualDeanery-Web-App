@@ -72,7 +72,7 @@ export class CreateCourse extends React.Component<RouteComponentProps<{}>, User>
                         id="name" name="name" autoComplete="true" required />
                     <textarea type="text" placeholder="Description" className="form-control"
                         id="description" name="description" autoComplete="true" required />
-                    <input type="text" placeholder="Password" className="form-control"
+                    <input type="password" placeholder="Password" className="form-control"
                         id="password" name="password" autoComplete="true" required />
                     <select name="difficulty" className="form-control">
                         <option value="begginer">Begginer</option>

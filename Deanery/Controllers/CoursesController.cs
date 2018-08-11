@@ -147,9 +147,6 @@ namespace Deanery.Controllers
                           select m;
          
                 return Ok(matches);
-
-            
-            return Ok("No courses found");
         }
 
         [Route("api/course/remove")]

@@ -18,7 +18,7 @@ export class ViewCourse extends React.Component<RouteComponentProps<{}>, States>
     }
 
     componentWillMount() {
-        this.httpGetAsync();
+        //this.httpGetAsync();
     }
 
 
@@ -85,7 +85,7 @@ export class ViewCourse extends React.Component<RouteComponentProps<{}>, States>
 
                     <h3 className="text-center">Courses panel</h3>
                     <p className="text-center">Use this input to search for courses</p>
-                    <input type="text" placeholder="Login" className="form-control"
+                    <input type="text" placeholder="Keyword" className="form-control" 
                         id="search" name="search" autoComplete="true" onChange={this.httpGetAsync} required />
                 </div>
             </form>
