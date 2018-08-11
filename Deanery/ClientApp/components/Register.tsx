@@ -3,6 +3,9 @@ import { RouteComponentProps } from 'react-router';
 var ReCAPTCHA = require("react-google-recaptcha");
 const serverUri = "/api/";
 
+declare function require(name: string): any;
+var Crypto = require('crypto-js')
+
 
 export class Register extends React.Component<RouteComponentProps<{}>, User> {
     constructor(props: any) {
@@ -25,6 +28,9 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         var pesel = formData.pesel.value;
         var login = formData.login.value;
         var captcha = formData.myCaptchaResponse.getAttribute("value");
+
+        //SHA256 hash
+        password = Crypto.SHA256(password).toString()
 
 
         request.open('POST', serverUri + 'user/register?captcha=' + captcha, true);

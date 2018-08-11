@@ -2,6 +2,8 @@
 import { RouteComponentProps } from 'react-router';
 const serverUri = "/api/";
 import { Logout } from './Logout';
+declare function require(name: string) : any;
+var Crypto = require('crypto-js')
 export class Login extends React.Component<RouteComponentProps<{}>, LoginStates>{
     constructor(props: any) {
         super(props);
@@ -18,6 +20,8 @@ export class Login extends React.Component<RouteComponentProps<{}>, LoginStates>
         var request = new XMLHttpRequest();
         var login = formData.login.value;
         var password = formData.password.value;
+
+        password = Crypto.SHA256(password).toString()
 
 
         request.open('POST', serverUri + 'user/login', true);
