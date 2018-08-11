@@ -14,7 +14,6 @@ namespace Deanery.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
             }
         }
@@ -32,10 +31,16 @@ namespace Deanery.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Leader)
+                    .HasMaxLength(60)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Password).IsUnicode(false);
             });
 
             modelBuilder.Entity<Student>(entity =>
