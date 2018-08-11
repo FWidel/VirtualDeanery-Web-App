@@ -15,15 +15,20 @@ namespace Deanery.Controllers
     {
         private DbDeaneryContext db = new DbDeaneryContext();
 
-        [Route("api/add/course")]
-        [HttpGet]
-        public IActionResult CreateNewCourse()
+        [Route("api/course/add")]
+        [HttpPost]
+        public IActionResult CreateNewCourse(Course course)
         {
+            var login = HttpContext.Session.GetString("Login");
+            var queryStudent =
+                        from student in db.Student
+                        where student.Login == login
+                        select student;
+            
+            foreach (Student student in queryStudent)
+                course.Leader = student.Firstname + " " + student.Surname;
 
-            Course course = new Course();
-            course.Description = "asddsa";
-            course.Difficulty = "hard";
-            course.Name = "dsad";
+            
             try
             {
                 db.Course.Add(course);
@@ -121,6 +126,42 @@ namespace Deanery.Controllers
             
 
             return studentcourse; 
+        }
+
+
+        [Route("api/course/get-all")]
+        [HttpPost]
+        public IActionResult getAllCourses()
+        {
+
+            var courses = db.Course.Where(c => true);
+            var login = HttpContext.Session.GetString("Login");
+            if (login == null)
+            {
+                return Ok("Unauthorized session");
+
+            }
+            return Ok(courses);
+        }
+
+        [Route("api/course/remove")]
+        [HttpGet]
+        public IActionResult DeleteStudentData([FromQuery]int Id)
+        {
+            try
+            {
+                var course = new Course();
+                course.Id = Id;
+                db.Course.Remove(course);
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex.Message);
+            }
+            db.SaveChanges();
+
+            return Ok("Successfully deleted from database");
+
         }
     }
 }
