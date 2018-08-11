@@ -9,5 +9,7 @@ namespace Deanery.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string Difficulty { get; set; }
+        public string Password { get; set; }
+        public string Leader { get; set; }
     }
 }
