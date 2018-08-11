@@ -27,18 +27,17 @@ export class ViewCourse extends React.Component<RouteComponentProps<{}>, States>
         var xhr = new XMLHttpRequest();
         var json_obj, status = false;
         var self = this;
+   
 
-        xhr.open("GET", "api/course/get-all", true);
+        xhr.open("GET", "api/course/get-all?search=" + (document.getElementById("search") as HTMLInputElement).value, true);
 
         xhr.onreadystatechange = function () {
 
-            if (xhr.responseText == "Unauthorized session") {
-                window.location.replace("login");
-            }
+          
 
-
+         
             var data = JSON.parse(xhr.responseText);
-
+            console.log(data);
             self.setState({
                 courses: data,
                 loading: false
@@ -87,7 +86,7 @@ export class ViewCourse extends React.Component<RouteComponentProps<{}>, States>
                     <h3 className="text-center">Courses panel</h3>
                     <p className="text-center">Use this input to search for courses</p>
                     <input type="text" placeholder="Login" className="form-control"
-                        id="login" name="login" autoComplete="true" onChange={this.httpGetAsync} required />
+                        id="search" name="search" autoComplete="true" onChange={this.httpGetAsync} required />
                 </div>
             </form>
             {contents}
@@ -124,9 +123,10 @@ export class ViewCourse extends React.Component<RouteComponentProps<{}>, States>
 interface Course {
     name: string,
     difficulty: string,
-    leader: string,
+    leader?: string,
     description: string,
-    id : number
+    id: number,
+    password: string
 
 }
 

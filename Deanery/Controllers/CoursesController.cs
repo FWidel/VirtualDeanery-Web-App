@@ -17,7 +17,7 @@ namespace Deanery.Controllers
 
         [Route("api/course/add")]
         [HttpPost]
-        public IActionResult CreateNewCourse(Course course)
+        public IActionResult CreateNewCourse([FromBody]Course course)
         {
             var login = HttpContext.Session.GetString("Login");
             var queryStudent =
@@ -130,18 +130,26 @@ namespace Deanery.Controllers
 
 
         [Route("api/course/get-all")]
-        [HttpPost]
-        public IActionResult getAllCourses()
+        [HttpGet]
+        public IActionResult getAllCourses([FromQuery]string search)
         {
 
-            var courses = db.Course.Where(c => true);
+           
             var login = HttpContext.Session.GetString("Login");
             if (login == null)
             {
                 return Ok("Unauthorized session");
 
             }
-            return Ok(courses);
+
+            var matches = from m in db.Course
+                          where m.Name.Contains(search)
+                          select m;
+         
+                return Ok(matches);
+
+            
+            return Ok("No courses found");
         }
 
         [Route("api/course/remove")]
