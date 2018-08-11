@@ -15,16 +15,12 @@ namespace Deanery.Controllers
     {
         private DbDeaneryContext db = new DbDeaneryContext();
 
-        [Route("api/add/course")]
-        [HttpGet]
-        public IActionResult CreateNewCourse()
+        [Route("api/course/add")]
+        [HttpPost]
+        public IActionResult CreateNewCourse([FromBody]Course course)
         {
 
-            Course course = new Course();
-            course.Description = "asddsa";
-            course.Difficulty = "hard";
-            course.Name = "dsad";
-            try
+           try
             {
                 db.Course.Add(course);
                 db.SaveChanges();

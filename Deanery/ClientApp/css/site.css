@@ -282,3 +282,9 @@ button {
     color: inherit;
     font: inherit;
 }
+
+
+.login-form #description{
+    height : 200px;
+
+}

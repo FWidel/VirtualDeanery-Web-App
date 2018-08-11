@@ -88,13 +88,13 @@ export class NavMenu extends React.Component<{}, { authorized: boolean, courses:
                         </li>
                         {this.state.courses == true ?
                             <li>
-                                <NavLink to={'/courses'} exact > <span className='glyphicon glyphicon-chevron-right'></span>
+                                <NavLink to={'/createCourse'} exact > <span className='glyphicon glyphicon-chevron-right'></span>
                                     <span className='glyphicon glyphicon-home'></span> create
                                  </NavLink>
                             </li> : <span></span>}
                         {this.state.courses == true ?
                             <li>
-                                <NavLink to={'/courses'} exact >  <span className='glyphicon glyphicon-chevron-right'></span>
+                                <NavLink to={'/viewCourse'} exact >  <span className='glyphicon glyphicon-chevron-right'></span>
                                     <span className='glyphicon glyphicon-home'></span> view
                             </NavLink>
                             </li> : <span></span>}
