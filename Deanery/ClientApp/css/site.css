@@ -48,12 +48,10 @@
         .main-nav .navbar li {
             float: none;
             font-size: 15px;
-            margin: 6px;
         }
 
             .main-nav .navbar li a {
                 padding: 10px 16px;
-                border-radius: 4px;
             }
 
         .main-nav .navbar a {
@@ -67,13 +65,14 @@
 
 
 .contentMenu {
-    box-shadow: 1px 0px 2px;
+    box-shadow: 0px 0px 2px;
     margin-top: 50px;
+    background: #fefefe none repeat scroll 0 0;
 }
 
 .navMenu {
     box-shadow: 1px 0px 2px;
-    background: #dadada;
+    background: #f2f2f2;
 }
 
 .logoutButton {
@@ -188,14 +187,98 @@
     background-color: white;
 }
 
-    .nav li {
-        background-color: #dadada;
-        box-shadow: 0px 0px 0px 2px grey;
-        border-radius: 2px;
+
+
+
+
+
+    .nav li li a {
+        text-decoration: none !important;
+        border: none;
     }
 
-        .nav li a.active {
-           
-           font-size:110%;
-           text-decoration:wavy;
-        }
+
+
+
+    .nav button {
+        padding: 10px 15px;
+        width: 100%;
+    }
+
+button a {
+    color: black;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+
+.activeButton {
+    background-color: #fafafa;
+}
+
+.login-form .btn.btn-primary {
+    background: #f0ad4e none repeat scroll 0 0;
+    border-color: #f0ad4e;
+    color: #ffffff;
+    font-size: 14px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}
+
+.login-form .form-control {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.login-form p {
+    color: #777777;
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 24px;
+}
+
+.login-form > * {
+    margin-bottom: 10px;
+}
+
+
+
+.signin a {
+    font-size: 13px;
+    text-decoration: none;
+    color: #666;
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+    opacity: 0.6;
+    transition: opacity ease 0.5s;
+    top: -20px;
+    position: relative;
+    padding-right: 10px;
+}
+
+
+body {
+    background: #f7f7f7 none repeat scroll 0 0;
+    background-size: 100% 100%;
+}
+
+button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+}
