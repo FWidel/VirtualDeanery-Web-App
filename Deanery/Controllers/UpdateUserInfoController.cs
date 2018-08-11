@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Deanery.Controllers
 {
-    public class InformationAboutUserController : Controller
+    public class UpdateUserInfoController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
         [Route("api/user/change-password")]
@@ -39,28 +39,7 @@ namespace Deanery.Controllers
                 return Ok("Error");
         }
 
-        [Route("api/user/get-current-user")]
-        [HttpPost]
-        public IActionResult Login(JSONLoginImage prop)
-        {
-            var login = HttpContext.Session.GetString("Login");
 
-            var query =
-                        from Onestudent in db.Student
-                        where Onestudent.Login == login
-                        select Onestudent;
-            foreach (Student Onestudent in query)
-            {
-                prop.Login = Onestudent.Login;
-                if (Onestudent.Image != null)
-                    prop.Image = Encoding.ASCII.GetString(Onestudent.Image);               
-                else
-                    prop.Image = "No image";
-                return Ok(prop);
-            }
-
-            return Ok("notFound");
-        }
 
         [Route("api/user/change-firstname")]
         [HttpPost]
@@ -88,6 +67,7 @@ namespace Deanery.Controllers
         }
 
 
+
         [Route("api/user/change-pesel")]
         [HttpPost]
         public IActionResult ChangePESEL([FromBody]JSONData property)
@@ -96,7 +76,7 @@ namespace Deanery.Controllers
             var login = HttpContext.Session.GetString("Login");
             Regex PeselRegex = new Regex(@"[0-9]{11}");
             if (PeselRegex.IsMatch(property.Property))
-            {              
+            {
                 var query =
                             from Onestudent in db.Student
                             where Onestudent.Login == login
@@ -113,6 +93,7 @@ namespace Deanery.Controllers
             else
                 return Ok("Invalid PESEL");
         }
+
 
         [Route("api/user/change-phone")]
         [HttpPost]
@@ -193,11 +174,12 @@ namespace Deanery.Controllers
             else
                 return Ok("Error");
         }
+
         [Route("api/user/get-image")]
         [HttpPost]
-        public IActionResult getImage([FromBody]JSONLoginImage property)
+        public IActionResult getImageStudent([FromBody]JSONStudent property)
         {
-           
+
 
             var login = HttpContext.Session.GetString("Login");
             bool status = false;
@@ -207,9 +189,9 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student Onestudent in query)
             {
-    
-                    Onestudent.Image = Encoding.ASCII.GetBytes(property.Image);
-                
+
+                Onestudent.Image = Encoding.ASCII.GetBytes(property.Image);
+
                 status = true;
             }
             db.SaveChanges();
@@ -219,5 +201,7 @@ namespace Deanery.Controllers
                 return Ok("notFound");
 
         }
+
+
     }
 }

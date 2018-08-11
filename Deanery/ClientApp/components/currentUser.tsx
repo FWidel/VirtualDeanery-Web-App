@@ -169,8 +169,9 @@ export class CurrentUser extends React.Component<RouteComponentProps<{}>, FetchD
                     <div className="col-md-2 col-lg-2 userImage"> 
 
                         <form action="api/user/get-image" method="post">
-                        <label htmlFor="photo" className="custom-file-upload">                          
-                            <img alt="User Pic" id="image" src={this.state.file} className="img-circle img-responsive customImage" />
+                        <label htmlFor="photo" className="custom-file-upload">                  
+                                <img alt="User Pic" id="image" src={this.state.file} className="img-circle img-responsive customImage" />
+                                <i>Click to change image</i>
                         </label>
                             <input name="photo" id="photo" className="hidden" type="file" onChange={this.handleChange} />
                         </form>

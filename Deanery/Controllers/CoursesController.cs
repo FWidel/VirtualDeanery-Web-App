@@ -40,13 +40,13 @@ namespace Deanery.Controllers
 
         [Route("api/add/studentcourse")]
         [HttpGet]
-        public IActionResult AddStudentCourse([FromQuery]string NameCourse)
+        public IActionResult AddStudentToCourse([FromQuery]string NameCourse)
         {
-            StudentCourse studentcourse = ExtractedStudentCourse(NameCourse);
+            CourseStudent studentcourse = ExtractedStudentCourse(NameCourse);
 
             try
             {
-                db.StudentCourse.Add(studentcourse);
+                db.CourseStudent.Add(studentcourse);
                 db.SaveChanges();
                 return Ok("Successfully added student to course");
             }
@@ -62,11 +62,11 @@ namespace Deanery.Controllers
         [HttpGet]
         public IActionResult RemoveStudentCourse([FromQuery]string NameCourse)
         {
-            StudentCourse studentcourse = ExtractedStudentCourse(NameCourse);
-         
+            CourseStudent studentcourse = ExtractedStudentCourse(NameCourse);
+
             try
             {
-                db.StudentCourse.Remove(studentcourse);
+                db.CourseStudent.Remove(studentcourse);
                 db.SaveChanges();
                 return Ok("Successfully removed student to course");
             }
@@ -77,7 +77,7 @@ namespace Deanery.Controllers
 
         }
 
-        private StudentCourse ExtractedStudentCourse(string NameCourse)
+        private CourseStudent ExtractedStudentCourse(string NameCourse)
         {
 
             var student = HttpContext.Session.GetString("Login");
@@ -85,36 +85,38 @@ namespace Deanery.Controllers
                         from Onestudent in db.Student
                         where Onestudent.Login == student
                         select Onestudent;
-            var queryCourse =
-                        from onecourse in db.Course
-                        where onecourse.Name == NameCourse
-                        select onecourse;
-            
 
-            StudentCourse studentcourse = new StudentCourse();
+
+
+            CourseStudent studentcourse = new CourseStudent();
 
             foreach (Student Onestudent in queryStudent)
             {
                 studentcourse.StudentId = Onestudent.Id;
-             
+
 
             }
+            var queryCourse =
+                        from onecourse in db.Course
+                        where onecourse.Name == NameCourse
+                        select onecourse;
             foreach (Course onecourse in queryCourse)
             {
                 studentcourse.CourseId = onecourse.Id;
 
             }
+            
             var queryStudentCourse =
-                        from oneStudentCourse in db.StudentCourse
+                        from oneStudentCourse in db.CourseStudent
                         where oneStudentCourse.StudentId == studentcourse.StudentId && oneStudentCourse.CourseId == studentcourse.CourseId
                         select oneStudentCourse;
-           var ID= queryStudentCourse.Select(p => p.Id);
-            foreach (StudentCourse onestudentcourse in queryStudentCourse)
+
+            foreach (CourseStudent onestudentcourse in queryStudentCourse)
             {
                 studentcourse.Id = onestudentcourse.Id;
 
             }
-            
+           
             return studentcourse;
         }
     }

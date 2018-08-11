@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Deanery.Entities
 {
-   
     public partial class Student
     {
         public int Id { get; set; }
