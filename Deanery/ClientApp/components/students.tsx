@@ -44,6 +44,8 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
             if (xhr.responseText == "Unauthorized session") {
                 window.location.replace("login");
             }
+
+
             var data = JSON.parse (xhr.responseText);
        
             self.setState({

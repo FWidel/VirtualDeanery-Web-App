@@ -14,25 +14,13 @@ namespace Deanery.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                optionsBuilder.UseSqlServer(@"Data Source=192.168.0.87,49170;Initial Catalog=DbDeanery;Persist Security Info=True;User ID=franek;Password=franek");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CourseStudent>(entity =>
-            {
-                entity.Property(e => e.StudentId)
-                    .IsRequired()
-                    .HasColumnType("int");
-
-                entity.Property(e => e.CourseId)
-                     .IsRequired()
-                     .HasColumnType("int");
-
-                
-            });
             modelBuilder.Entity<Course>(entity =>
             {
                 entity.Property(e => e.Description)
@@ -71,9 +59,7 @@ namespace Deanery.Entities
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Password)
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+                entity.Property(e => e.Password).IsUnicode(false);
 
                 entity.Property(e => e.Pesel)
                     .IsRequired()
