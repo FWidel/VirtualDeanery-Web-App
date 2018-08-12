@@ -132,7 +132,7 @@ namespace Deanery.Controllers
         [Route("api/course/get-all")]
         [HttpGet]
         public IActionResult getAllCourses([FromQuery]string search)
-        {
+     {
 
            
             var login = HttpContext.Session.GetString("Login");
@@ -145,8 +145,15 @@ namespace Deanery.Controllers
             var matches = from m in db.Course
                           where m.Name.Contains(search)
                           select m;
-         
-                return Ok(matches);
+            var query = from student in db.Student
+                        from course in db.Course
+                        where student.StudentId == course.LeaderId
+                        select student;
+            foreach (var match in matches)
+            {
+                match.Leader = query.Select(p => p.Firstname).First();
+            }
+            return Ok(matches);
         }
 
         [Route("api/course/remove")]

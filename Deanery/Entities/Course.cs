@@ -16,6 +16,7 @@ namespace Deanery.Entities
         public string Difficulty { get; set; }
         public string Password { get; set; }
         public int? LeaderId { get; set; }
+        public string Leader { get; set; }
 
         public ICollection<CourseStudent> CourseStudent { get; set; }
     }
