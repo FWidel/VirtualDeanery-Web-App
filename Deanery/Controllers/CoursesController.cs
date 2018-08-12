@@ -24,9 +24,9 @@ namespace Deanery.Controllers
                         from student in db.Student
                         where student.Login == login
                         select student;
-
+            
             foreach (Student student in queryStudent)
-                course.LeaderId = student.Id;
+                course.LeaderId = student.StudentId;
 
             
             try
@@ -97,7 +97,7 @@ namespace Deanery.Controllers
 
             foreach (Student Onestudent in queryStudent)
             {
-                studentcourse.StudentId = Onestudent.Id;
+                studentcourse.StudentId = Onestudent.StudentId;
 
 
             }
@@ -107,7 +107,7 @@ namespace Deanery.Controllers
                         select onecourse;
             foreach (Course onecourse in queryCourse)
             {
-                studentcourse.CourseId = onecourse.Id;
+                studentcourse.CourseId = onecourse.CourseId;
 
             }
             
@@ -132,7 +132,7 @@ namespace Deanery.Controllers
         [Route("api/course/get-all")]
         [HttpGet]
         public IActionResult getAllCourses([FromQuery]string search)
-        {
+     {
 
            
             var login = HttpContext.Session.GetString("Login");
@@ -145,8 +145,15 @@ namespace Deanery.Controllers
             var matches = from m in db.Course
                           where m.Name.Contains(search)
                           select m;
-         
-                return Ok(matches);
+            var query = from student in db.Student
+                        from course in db.Course
+                        where student.StudentId == course.LeaderId
+                        select student;
+            foreach (var match in matches)
+            {
+                match.Leader = query.Select(p => p.Firstname).First();
+            }
+            return Ok(matches);
         }
 
         [Route("api/course/remove")]
@@ -156,7 +163,7 @@ namespace Deanery.Controllers
             try
             {
                 var course = new Course();
-                course.Id = Id;
+                course.CourseId = Id;
                 db.Course.Remove(course);
             }
             catch (Exception ex)

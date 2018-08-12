@@ -14,7 +14,7 @@ namespace Deanery.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=192.168.0.87,49170;Initial Catalog=DbDeanery;Persist Security Info=True;User ID=franek;Password=franek");
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SE8O521;Initial Catalog=DbDeanery;Integrated Security=True;");
             }
         }
 
@@ -32,7 +32,7 @@ namespace Deanery.Entities
                     .IsUnicode(false);
 
                 entity.Property(e => e.Leader)
-                    .HasMaxLength(60)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)
@@ -41,6 +41,21 @@ namespace Deanery.Entities
                     .IsUnicode(false);
 
                 entity.Property(e => e.Password).IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CourseStudent>(entity =>
+            {
+                entity.HasOne(d => d.Course)
+                    .WithMany(p => p.CourseStudent)
+                    .HasForeignKey(d => d.CourseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__CourseStu__Cours__1332DBDC");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.CourseStudent)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__CourseStu__Stude__123EB7A3");
             });
 
             modelBuilder.Entity<Student>(entity =>

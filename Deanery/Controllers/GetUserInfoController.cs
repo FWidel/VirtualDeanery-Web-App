@@ -86,7 +86,7 @@ namespace Deanery.Controllers
                 prop.Login = Onestudent.Login;
                 prop.Email = Onestudent.Email;
                 prop.Firstname = Onestudent.Firstname;
-                prop.Id = Onestudent.Id;
+                prop.Id = Onestudent.StudentId;
                 prop.Lastname = Onestudent.Lastname;
                 prop.Pesel = Onestudent.Pesel;
                 prop.Phone = Onestudent.Phone;
