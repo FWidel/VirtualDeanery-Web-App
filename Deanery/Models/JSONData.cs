@@ -9,5 +9,7 @@ namespace Deanery.Models
     {
         public string Property { get; set; }
         
+          
+
     }
 }

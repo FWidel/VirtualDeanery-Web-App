@@ -19,7 +19,7 @@ namespace Deanery.Controllers
             try
             {
                 Student student = new Student();
-                student.Id = Id;
+                student.StudentId = Id;
                 db.Student.Remove(student);
             }
             catch (Exception ex)

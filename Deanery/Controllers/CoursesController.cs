@@ -26,7 +26,7 @@ namespace Deanery.Controllers
                         select student;
             
             foreach (Student student in queryStudent)
-                course.Leader = student.Firstname + " " + student.Surname;
+                course.LeaderId = student.StudentId;
 
             
             try
@@ -97,7 +97,7 @@ namespace Deanery.Controllers
 
             foreach (Student Onestudent in queryStudent)
             {
-                studentcourse.StudentId = Onestudent.Id;
+                studentcourse.StudentId = Onestudent.StudentId;
 
 
             }
@@ -107,7 +107,7 @@ namespace Deanery.Controllers
                         select onecourse;
             foreach (Course onecourse in queryCourse)
             {
-                studentcourse.CourseId = onecourse.Id;
+                studentcourse.CourseId = onecourse.CourseId;
 
             }
             
@@ -156,7 +156,7 @@ namespace Deanery.Controllers
             try
             {
                 var course = new Course();
-                course.Id = Id;
+                course.CourseId = Id;
                 db.Course.Remove(course);
             }
             catch (Exception ex)
