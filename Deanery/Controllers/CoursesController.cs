@@ -24,9 +24,9 @@ namespace Deanery.Controllers
                         from student in db.Student
                         where student.Login == login
                         select student;
-            
+
             foreach (Student student in queryStudent)
-                course.Leader = student.Firstname + " " + student.Surname;
+                course.LeaderId = student.Id;
 
             
             try

@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Owin;
+using Deanery.Hubs;
+using Microsoft.AspNetCore.SignalR.Http
+
 namespace Deanery
 {
     public class Startup
@@ -15,10 +19,11 @@ namespace Deanery
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,10 +38,13 @@ namespace Deanery
             });
 
             services.AddMvc();
-            
+            services.AddSignalR();
+
 
 
         }
+
+         
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -55,6 +63,10 @@ namespace Deanery
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
             app.UseStaticFiles();
             app.UseSession();
             

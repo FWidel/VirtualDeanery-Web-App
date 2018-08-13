@@ -31,8 +31,7 @@ namespace Deanery.Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Leader)
-                    .HasMaxLength(60)
+                entity.Property(e => e.LeaderId)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name)

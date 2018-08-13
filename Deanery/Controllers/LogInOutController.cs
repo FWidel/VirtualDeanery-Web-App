@@ -17,13 +17,13 @@ namespace Deanery.Controllers
         [HttpPost]
         public IActionResult LoginMethod([FromBody]ClassLogin user)
         {
-           
 
-            var login = db.Student.Where(p => p.Login == user.Login&& p.Password == user.Password);
+
+            var login = db.Student.Where(p => p.Login == user.Login && p.Password == user.Password);
             if (login.Count() != 0)
             {
                 HttpContext.Session.SetString("Login", user.Login);
-               
+
                 return Ok(HttpContext.Session.GetString("Login"));
 
             }

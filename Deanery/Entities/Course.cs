@@ -10,6 +10,6 @@ namespace Deanery.Entities
         public string Description { get; set; }
         public string Difficulty { get; set; }
         public string Password { get; set; }
-        public string Leader { get; set; }
+        public int LeaderId { get; set; }
     }
 }

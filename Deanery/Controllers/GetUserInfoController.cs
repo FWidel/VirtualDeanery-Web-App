@@ -45,10 +45,7 @@ namespace Deanery.Controllers
         public IActionResult checkAuthorization()
         {
 
-
-            var login = HttpContext.Session.GetString("Login");
-           
-            if (login != null)
+            if (HttpContext.Session.GetString("Login") != null)
                 return Ok("true");
             else
                 return Ok("false");
@@ -81,8 +78,11 @@ namespace Deanery.Controllers
                         where Onestudent.Login == login
                         select Onestudent;
             JSONStudent prop = new JSONStudent();
+
+            
             foreach (Student Onestudent in query)
             {
+    
                 prop.Login = Onestudent.Login;
                 prop.Email = Onestudent.Email;
                 prop.Firstname = Onestudent.Firstname;
@@ -93,7 +93,9 @@ namespace Deanery.Controllers
                 prop.Surname = Onestudent.Surname;
 
                 if (Onestudent.Image != null)
+                {
                     prop.Image = Encoding.ASCII.GetString(Onestudent.Image);
+                }
                 else
                     prop.Image = "No image";
                 return Ok(prop);
