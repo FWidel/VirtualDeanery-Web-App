@@ -10,8 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Owin;
 using Deanery.Hubs;
-using Microsoft.AspNetCore.SignalR.Http
-
 namespace Deanery
 {
     public class Startup
@@ -38,7 +36,6 @@ namespace Deanery
             });
 
             services.AddMvc();
-            services.AddSignalR();
 
 
 
@@ -63,10 +60,7 @@ namespace Deanery
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<ChatHub>("/chatHub");
-            });
+           
             app.UseStaticFiles();
             app.UseSession();
             
