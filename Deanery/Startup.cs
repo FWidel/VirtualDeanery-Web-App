@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Deanery.Hubs;
+
 namespace Deanery
 {
     public class Startup
@@ -33,7 +31,7 @@ namespace Deanery
             });
 
             services.AddMvc();
-            
+            services.AddSignalR();
 
 
         }
@@ -54,10 +52,13 @@ namespace Deanery
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+           
             app.UseStaticFiles();
             app.UseSession();
-            
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
