@@ -8,6 +8,8 @@
 @section scripts {
     <script src="~/dist/main.js" asp-append-version="true"></script>
     <script src='https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad'></script>
+    <script src='~/lib/signalr/signalr.js' ></script>
+    <script src='~/lib//signalr/chat.js' ></script>
     <script>
         var onReCaptchaLoad = function () {
             if (document.getElementById("myCaptcha") == null) return;
