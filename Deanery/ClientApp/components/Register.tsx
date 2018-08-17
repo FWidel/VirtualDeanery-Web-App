@@ -65,8 +65,8 @@ export class Register extends React.Component<RouteComponentProps<{}>, User> {
         return <div>
             <form id="registerForm" className="form-group" onSubmit={this.userRegister} action="#">
                 <div className="container login-form">
-                    <h1>Register</h1>
-                    <p>Please fill in this form to create an account.</p>
+                    <h3 className="text-center">Register</h3>
+                    <p className="text-center">Please fill in this form to create an account.</p>
                     <hr />
                     <input type="text" placeholder="Enter name" className="form-control" id="firstname" name="firstname" required />
                     <input type="text" placeholder="Enter lastname" className="form-control" id="lastname" name="lastname" required />
