@@ -26,9 +26,10 @@ namespace Deanery.Controllers
                         select student;
 
             foreach (Student student in queryStudent)
+            {
                 course.LeaderId = student.Id;
+            }
 
-            
             try
             {
                 db.Course.Add(course);
