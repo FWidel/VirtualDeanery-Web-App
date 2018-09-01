@@ -1,14 +1,18 @@
 @{
     ViewData["Title"] = "";
+
 }
 
-<div id="react-app">Loading...</div>
+<div id="react-app"></div>
 
 @section scripts {
     <script src="~/dist/main.js" asp-append-version="true"></script>
     <script src='https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad'></script>
+    <script src='~/lib/signalr/signalr.js' ></script>
+    <script src='~/lib//signalr/chat.js' ></script>
     <script>
         var onReCaptchaLoad = function () {
+            if (document.getElementById("myCaptcha") == null) return;
             var captchaWidgetId = grecaptcha.render('myCaptcha', {
                 'sitekey': '6LfUQ2gUAAAAAJ_aYbFYClWkl001zjBiYhf6_wNs',  // required
                 'theme': 'light',  // optional
@@ -17,7 +21,9 @@
         };
 
         var verifyCallback = function (response) {
-            document.getElementById("myCaptchaResponse").setAttribute("value", response);
+                document.getElementById("myCaptchaResponse").setAttribute("value", response);
+            
+            
         };
     </script>
 }

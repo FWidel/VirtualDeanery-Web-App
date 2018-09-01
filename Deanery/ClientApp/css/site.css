@@ -25,82 +25,271 @@
         height: 100%;
         width: calc(15% - 20px);
     }
-    .main-nav .navbar {
-        border-radius: 0px;
-        border-width: 0px;
-        height: 100%;
-    }
-    .main-nav .navbar-header {
-        float: none;
-    }
-    .main-nav .navbar-collapse {
-        border-top: 1px solid #444;
-        padding: 0px;
-    }
-    .main-nav .navbar ul {
-        float: none;
-    }
-    .main-nav .navbar li {
-        float: none;
-        font-size: 15px;
-        margin: 6px;
-    }
-    .main-nav .navbar li a {
-        padding: 10px 16px;
-        border-radius: 4px;
-    }
-    .main-nav .navbar a {
-        /* If a menu item's text is too long, truncate it */
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+
+        .main-nav .navbar {
+            border-radius: 0px;
+            border-width: 0px;
+            height: 100%;
+        }
+
+        .main-nav .navbar-header {
+            float: none;
+        }
+
+        .main-nav .navbar-collapse {
+            border-top: 1px solid #444;
+            padding: 0px;
+        }
+
+        .main-nav .navbar ul {
+            float: none;
+        }
+
+        .main-nav .navbar li {
+            float: none;
+            font-size: 15px;
+        }
+
+            .main-nav .navbar li a {
+                padding: 10px 16px;
+            }
+
+        .main-nav .navbar a {
+            /* If a menu item's text is too long, truncate it */
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 }
 
 
 .contentMenu {
-    box-shadow: 1px 0px 2px;
+    box-shadow: 0px 0px 2px;
     margin-top: 50px;
+    background: #fefefe none repeat scroll 0 0;
 }
 
 .navMenu {
     box-shadow: 1px 0px 2px;
-    background: #dadada;
+    background: #f2f2f2;
 }
 
-.logoutButton{
-    margin-top:10px;
+.logoutButton {
+    margin-top: 10px;
 }
 
-.rightSidePanel{
-    position:fixed;
-    right: 70px;
-    top : 0px;
+.rightSidePanel {
+    position: fixed;
+    right: 40px;
+    top: 10px;
 }
 
-#myCaptchaResponse{
-    visibility:hidden;
+#myCaptchaResponse {
+    visibility: hidden;
+}
+
+#myCaptcha{
+    left:15%;
+    position:relative;
 }
 
 
-.container{
-    width:500px;
+.container {
+    width: 500px;
 }
 
 
 .settingButton {
-    font-size: 30px;
-    padding: 5px;
-    
+    font-size: 25px;
+    padding-top: 10px;
+    top: 5px;
 }
-.customDropdown{
-    display:block;
-    text-decoration : none;
+
+.customDropdown {
+    display: block;
+    text-decoration: none;
     color: red;
 }
 
-.dropdown-menu{
-    padding:5px;
+.dropdown-menu {
+    padding: 5px;
 }
 
+.user-row {
+    margin-bottom: 14px;
+}
+
+    .user-row:last-child {
+        margin-bottom: 0;
+    }
+
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
+}
+
+    .dropdown-user:hover {
+        cursor: pointer;
+    }
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+    .table-user-information > tbody > tr:first-child {
+        border-top: 0;
+    }
+
+
+    .table-user-information > tbody > tr > td {
+        border-top: 0;
+    }
+
+.toppad {
+    margin-top: 20px;
+}
+
+.userImage {
+    margin-top: 20px;
+}
+
+
+.panel-heading {
+    padding-left: 1%;
+}
+
+
+.glyphicon-pencil {
+    right: -30px;
+    padding: 2px 4px 2px 4px;
+    font-size: 110%;
+}
+
+.currentUserLabel {
+    display: inline-block;
+    min-width: 200px;
+}
+
+.miniImage {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 6px 11px -5px;
+}
+
+
+.customImage {
+    display: block;
+    width: 170px;
+    height: 185px;
+    top: 30px;
+}
+
+
+.nav {
+    background-color: white;
+}
+
+
+
+
+
+
+    .nav li li a {
+        text-decoration: none !important;
+        border: none;
+    }
+
+
+
+
+    .nav button {
+        padding: 10px 15px;
+        width: 100%;
+    }
+
+button a {
+    color: black;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+
+.activeButton {
+    background-color: #fafafa;
+}
+
+.login-form .btn.btn-primary {
+    background: #f0ad4e none repeat scroll 0 0;
+    border-color: #f0ad4e;
+    color: #ffffff;
+    font-size: 14px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}
+
+.login-form .form-control {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.login-form p {
+    color: #777777;
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 24px;
+}
+
+.login-form > * {
+    margin-bottom: 10px;
+}
+
+
+
+.signin a {
+    font-size: 13px;
+    text-decoration: none;
+    color: #666;
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+    opacity: 0.6;
+    transition: opacity ease 0.5s;
+    top: -20px;
+    position: relative;
+    padding-right: 10px;
+}
+
+
+body {
+    background: #f7f7f7 none repeat scroll 0 0;
+    background-size: 100% 100%;
+}
+
+button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+}
+
+
+.login-form #description{
+    height : 200px;
+
+}

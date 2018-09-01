@@ -44,6 +44,8 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
             if (xhr.responseText == "Unauthorized session") {
                 window.location.replace("login");
             }
+
+
             var data = JSON.parse (xhr.responseText);
        
             self.setState({
@@ -108,7 +110,7 @@ export class Students extends React.Component<RouteComponentProps<{}>, FetchData
             <tbody>
                 {users.map(user =>
                     <tr key={user.id} >
-                        <td><input type="text" name="xD" placeholder={user.firstname} /></td>
+                        <td>{user.firstname}</td>
                         <td>{user.lastname}</td>
                         <td>{user.surname}</td>
                         <td>{user.pesel}</td>

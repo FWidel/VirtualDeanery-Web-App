@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Deanery.Entities;
+using Deanery.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Deanery.Controllers
 {
-    public class InformationAboutUserController : Controller
+    public class UpdateUserInfoController : Controller
     {
         private DbDeaneryContext db = new DbDeaneryContext();
         [Route("api/user/change-password")]
@@ -37,27 +39,13 @@ namespace Deanery.Controllers
                 return Ok("Error");
         }
 
-        [Route("api/user/get-current-user")]
-        [HttpPost]
-        public IActionResult Login()
-        {
-            var login = HttpContext.Session.GetString("Login");
 
-            var query =
-                        from Onestudent in db.Student
-                        where Onestudent.Login == login
-                        select Onestudent;
-            foreach (Student Onestudent in query)
-            {
-                return Ok(Onestudent.Login);
-            }
-            return Ok("notFound");
-        }
 
         [Route("api/user/change-firstname")]
-        [HttpGet]
-        public IActionResult ChangeName([FromQuery]string FirstName)
+        [HttpPost]
+        public IActionResult ChangeName([FromBody]JSONData property)
         {
+
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
 
@@ -67,7 +55,7 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student ord in query)
             {
-                ord.Firstname = FirstName;
+                ord.Firstname = property.Property;
                 status = true;
 
             }
@@ -79,22 +67,23 @@ namespace Deanery.Controllers
         }
 
 
+
         [Route("api/user/change-pesel")]
-        [HttpGet]
-        public IActionResult ChangePESEL([FromQuery]string PESEL)
+        [HttpPost]
+        public IActionResult ChangePESEL([FromBody]JSONData property)
         {
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
             Regex PeselRegex = new Regex(@"[0-9]{11}");
-            if (PeselRegex.IsMatch(PESEL))
-            {              
+            if (PeselRegex.IsMatch(property.Property))
+            {
                 var query =
                             from Onestudent in db.Student
                             where Onestudent.Login == login
                             select Onestudent;
                 foreach (Student ord in query)
                 {
-                    ord.Pesel = PESEL;
+                    ord.Pesel = property.Property;
                     status = true;
                 }
                 db.SaveChanges();
@@ -105,15 +94,16 @@ namespace Deanery.Controllers
                 return Ok("Invalid PESEL");
         }
 
+
         [Route("api/user/change-phone")]
-        [HttpGet]
-        public IActionResult ChangePhone([FromQuery]string Phone)
+        [HttpPost]
+        public IActionResult ChangePhone([FromBody]JSONData property)
         {
 
             bool status = false;
             var login = HttpContext.Session.GetString("Login");
             Regex PhoneNumberRegex = new Regex(@"[0-9]");
-            if (PhoneNumberRegex.IsMatch(Phone))
+            if (PhoneNumberRegex.IsMatch(property.Property))
             {
                 var query =
                             from Onestudent in db.Student
@@ -121,7 +111,7 @@ namespace Deanery.Controllers
                             select Onestudent;
                 foreach (Student ord in query)
                 {
-                    ord.Phone = Phone;
+                    ord.Phone = property.Property;
                     status = true;
                 }
                 db.SaveChanges();
@@ -132,13 +122,65 @@ namespace Deanery.Controllers
                 return Ok("Invalid Phone");
 
         }
+        [Route("api/user/change-email")]
+        [HttpPost]
+        public IActionResult ChangeEmail([FromBody]JSONData property)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+            Regex EmailRegex = new Regex(@"^[a-z][a-z0-9_-]*@[a-z0-9]*\.[a-z]{2,3}$");
+
+
+            if (!EmailRegex.IsMatch(property.Property))
+                return Ok("Invalid email");
+
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student ord in query)
+            {
+                ord.Email = property.Property;
+                status = true;
+
+            }
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Error");
+        }
+        [Route("api/user/change-surname")]
+        [HttpPost]
+        public IActionResult ChangeSurname([FromBody]JSONData property)
+        {
+            bool status = false;
+            var login = HttpContext.Session.GetString("Login");
+
+            var query =
+                        from Onestudent in db.Student
+                        where Onestudent.Login == login
+                        select Onestudent;
+            foreach (Student ord in query)
+            {
+                ord.Surname = property.Property;
+                status = true;
+
+            }
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
+            else
+                return Ok("Error");
+        }
 
         [Route("api/user/get-image")]
         [HttpPost]
-        public IActionResult getImage([FromBody] byte[] image)
+        public IActionResult getImageStudent([FromBody]JSONStudent property)
         {
 
-         
+
             var login = HttpContext.Session.GetString("Login");
             bool status = false;
             var query =
@@ -147,14 +189,19 @@ namespace Deanery.Controllers
                         select Onestudent;
             foreach (Student Onestudent in query)
             {
-                Onestudent.Image = image;
+
+                Onestudent.Image = Encoding.ASCII.GetBytes(property.Image);
+
                 status = true;
             }
-            if(status)
-            return Ok("Success");
+            db.SaveChanges();
+            if (status)
+                return Ok("Success");
             else
-                return Ok("Image isn't being add");
+                return Ok("notFound");
 
         }
+
+
     }
 }

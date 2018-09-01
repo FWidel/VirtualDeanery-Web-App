@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Deanery.Controllers
 {
-    public class DeleteStudentDataController : Controller
+    public class RemoveStudentDataController : Controller
     {
         
         private DbDeaneryContext db = new DbDeaneryContext();
